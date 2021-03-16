@@ -1,0 +1,15 @@
+[submodule "ethereumapis"]
+	path = ethereumapis
+	url = git@github.com:prysmaticlabs/ethereumapis.git
+[submodule "prysm"]
+	path = prysm
+	url = https://github.com/prysmaticlabs/prysm.git
+[submodule "protobuf"]
+	path = protobuf
+	url = git@github.com:gogo/protobuf.git
+[submodule "googleapis"]
+	path = googleapis
+	url = git@github.com:googleapis/googleapis.git
+[submodule "github.com/gogo/protobuf"]
+	path = github.com/gogo/protobuf
+	url = https://github.com/gogo/protobuf.git

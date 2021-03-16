@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+PROTOC_ARGS="--elixir_out=plugins=grpc:./lib/ \
+  -I. \
+  -I./googleapis \
+  -I./ethereumapis \
+  -I./prysm"
+
+protoc $PROTOC_ARGS --proto_path=prysm/proto prysm/proto/validator/accounts/v2/web_api.proto
+protoc $PROTOC_ARGS --proto_path=ethereumapis ethereumapis/eth/v1alpha1/validator.proto
+protoc $PROTOC_ARGS --proto_path=ethereumapis ethereumapis/eth/v1alpha1/beacon_chain.proto
+protoc $PROTOC_ARGS --proto_path=ethereumapis ethereumapis/eth/v1alpha1/node.proto
