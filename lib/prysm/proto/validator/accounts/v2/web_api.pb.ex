@@ -3,11 +3,11 @@ defmodule Ethereum.Validator.Accounts.V2.KeymanagerKind do
   use Protobuf, enum: true, syntax: :proto3
   @type t :: integer | :DERIVED | :IMPORTED | :REMOTE
 
-  field :DERIVED, 0
+  field(:DERIVED, 0)
 
-  field :IMPORTED, 1
+  field(:IMPORTED, 1)
 
-  field :REMOTE, 2
+  field(:REMOTE, 2)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.CreateWalletRequest do
@@ -36,14 +36,14 @@ defmodule Ethereum.Validator.Accounts.V2.CreateWalletRequest do
     :remote_ca_crt_path
   ]
 
-  field :keymanager, 1, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
-  field :wallet_password, 2, type: :string
-  field :mnemonic, 3, type: :string
-  field :num_accounts, 4, type: :uint64
-  field :remote_addr, 5, type: :string
-  field :remote_crt_path, 6, type: :string
-  field :remote_key_path, 7, type: :string
-  field :remote_ca_crt_path, 8, type: :string
+  field(:keymanager, 1, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true)
+  field(:wallet_password, 2, type: :string)
+  field(:mnemonic, 3, type: :string)
+  field(:num_accounts, 4, type: :uint64)
+  field(:remote_addr, 5, type: :string)
+  field(:remote_crt_path, 6, type: :string)
+  field(:remote_key_path, 7, type: :string)
+  field(:remote_ca_crt_path, 8, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.CreateWalletResponse do
@@ -56,7 +56,7 @@ defmodule Ethereum.Validator.Accounts.V2.CreateWalletResponse do
 
   defstruct [:wallet]
 
-  field :wallet, 1, type: Ethereum.Validator.Accounts.V2.WalletResponse
+  field(:wallet, 1, type: Ethereum.Validator.Accounts.V2.WalletResponse)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.EditWalletConfigRequest do
@@ -72,10 +72,10 @@ defmodule Ethereum.Validator.Accounts.V2.EditWalletConfigRequest do
 
   defstruct [:remote_addr, :remote_crt_path, :remote_key_path, :remote_ca_crt_path]
 
-  field :remote_addr, 1, type: :string
-  field :remote_crt_path, 2, type: :string
-  field :remote_key_path, 3, type: :string
-  field :remote_ca_crt_path, 4, type: :string
+  field(:remote_addr, 1, type: :string)
+  field(:remote_crt_path, 2, type: :string)
+  field(:remote_key_path, 3, type: :string)
+  field(:remote_ca_crt_path, 4, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse do
@@ -88,7 +88,7 @@ defmodule Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse do
 
   defstruct [:mnemonic]
 
-  field :mnemonic, 1, type: :string
+  field(:mnemonic, 1, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.WalletResponse do
@@ -102,8 +102,8 @@ defmodule Ethereum.Validator.Accounts.V2.WalletResponse do
 
   defstruct [:wallet_path, :keymanager_kind]
 
-  field :wallet_path, 1, type: :string
-  field :keymanager_kind, 2, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
+  field(:wallet_path, 1, type: :string)
+  field(:keymanager_kind, 2, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.ListAccountsRequest do
@@ -119,10 +119,10 @@ defmodule Ethereum.Validator.Accounts.V2.ListAccountsRequest do
 
   defstruct [:get_deposit_tx_data, :page_size, :page_token, :all]
 
-  field :get_deposit_tx_data, 1, type: :bool
-  field :page_size, 2, type: :int32
-  field :page_token, 3, type: :string
-  field :all, 4, type: :bool
+  field(:get_deposit_tx_data, 1, type: :bool)
+  field(:page_size, 2, type: :int32)
+  field(:page_token, 3, type: :string)
+  field(:all, 4, type: :bool)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.ListAccountsResponse do
@@ -137,9 +137,9 @@ defmodule Ethereum.Validator.Accounts.V2.ListAccountsResponse do
 
   defstruct [:accounts, :next_page_token, :total_size]
 
-  field :accounts, 1, repeated: true, type: Ethereum.Validator.Accounts.V2.Account
-  field :next_page_token, 2, type: :string
-  field :total_size, 3, type: :int32
+  field(:accounts, 1, repeated: true, type: Ethereum.Validator.Accounts.V2.Account)
+  field(:next_page_token, 2, type: :string)
+  field(:total_size, 3, type: :int32)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Account do
@@ -155,10 +155,10 @@ defmodule Ethereum.Validator.Accounts.V2.Account do
 
   defstruct [:validating_public_key, :account_name, :deposit_tx_data, :derivation_path]
 
-  field :validating_public_key, 1, type: :bytes
-  field :account_name, 2, type: :string
-  field :deposit_tx_data, 3, type: :bytes
-  field :derivation_path, 4, type: :string
+  field(:validating_public_key, 1, type: :bytes)
+  field(:account_name, 2, type: :string)
+  field(:deposit_tx_data, 3, type: :bytes)
+  field(:derivation_path, 4, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.AccountRequest do
@@ -172,8 +172,8 @@ defmodule Ethereum.Validator.Accounts.V2.AccountRequest do
 
   defstruct [:public_keys, :indices]
 
-  field :public_keys, 1, repeated: true, type: :bytes
-  field :indices, 2, repeated: true, type: :uint64
+  field(:public_keys, 1, repeated: true, type: :bytes)
+  field(:indices, 2, repeated: true, type: :uint64)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.AuthRequest do
@@ -187,8 +187,8 @@ defmodule Ethereum.Validator.Accounts.V2.AuthRequest do
 
   defstruct [:password, :password_confirmation]
 
-  field :password, 1, type: :string
-  field :password_confirmation, 2, type: :string
+  field(:password, 1, type: :string)
+  field(:password_confirmation, 2, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.AuthResponse do
@@ -202,8 +202,8 @@ defmodule Ethereum.Validator.Accounts.V2.AuthResponse do
 
   defstruct [:token, :token_expiration]
 
-  field :token, 1, type: :string
-  field :token_expiration, 2, type: :uint64
+  field(:token, 1, type: :string)
+  field(:token_expiration, 2, type: :uint64)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.NodeConnectionResponse do
@@ -226,11 +226,11 @@ defmodule Ethereum.Validator.Accounts.V2.NodeConnectionResponse do
     :deposit_contract_address
   ]
 
-  field :beacon_node_endpoint, 1, type: :string
-  field :connected, 2, type: :bool
-  field :syncing, 3, type: :bool
-  field :genesis_time, 4, type: :uint64
-  field :deposit_contract_address, 5, type: :bytes
+  field(:beacon_node_endpoint, 1, type: :string)
+  field(:connected, 2, type: :bool)
+  field(:syncing, 3, type: :bool)
+  field(:genesis_time, 4, type: :uint64)
+  field(:deposit_contract_address, 5, type: :bytes)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.LogsEndpointResponse do
@@ -244,8 +244,8 @@ defmodule Ethereum.Validator.Accounts.V2.LogsEndpointResponse do
 
   defstruct [:validator_logs_endpoint, :beacon_logs_endpoint]
 
-  field :validator_logs_endpoint, 1, type: :string
-  field :beacon_logs_endpoint, 2, type: :string
+  field(:validator_logs_endpoint, 1, type: :string)
+  field(:beacon_logs_endpoint, 2, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.VersionResponse do
@@ -259,8 +259,8 @@ defmodule Ethereum.Validator.Accounts.V2.VersionResponse do
 
   defstruct [:beacon, :validator]
 
-  field :beacon, 1, type: :string
-  field :validator, 2, type: :string
+  field(:beacon, 1, type: :string)
+  field(:validator, 2, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.ChangePasswordRequest do
@@ -275,9 +275,9 @@ defmodule Ethereum.Validator.Accounts.V2.ChangePasswordRequest do
 
   defstruct [:current_password, :password, :password_confirmation]
 
-  field :current_password, 1, type: :string
-  field :password, 2, type: :string
-  field :password_confirmation, 3, type: :string
+  field(:current_password, 1, type: :string)
+  field(:password, 2, type: :string)
+  field(:password_confirmation, 3, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
@@ -290,7 +290,7 @@ defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
 
   defstruct [:wallet_exists]
 
-  field :wallet_exists, 1, type: :bool
+  field(:wallet_exists, 1, type: :bool)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresRequest do
@@ -304,8 +304,8 @@ defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresRequest do
 
   defstruct [:keystores_imported, :keystores_password]
 
-  field :keystores_imported, 1, repeated: true, type: :string
-  field :keystores_password, 2, type: :string
+  field(:keystores_imported, 1, repeated: true, type: :string)
+  field(:keystores_password, 2, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresResponse do
@@ -318,7 +318,7 @@ defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresResponse do
 
   defstruct [:imported_public_keys]
 
-  field :imported_public_keys, 1, repeated: true, type: :bytes
+  field(:imported_public_keys, 1, repeated: true, type: :bytes)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.HasUsedWebResponse do
@@ -332,8 +332,8 @@ defmodule Ethereum.Validator.Accounts.V2.HasUsedWebResponse do
 
   defstruct [:has_signed_up, :has_wallet]
 
-  field :has_signed_up, 1, type: :bool
-  field :has_wallet, 2, type: :bool
+  field(:has_signed_up, 1, type: :bool)
+  field(:has_wallet, 2, type: :bool)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.LogsResponse do
@@ -346,7 +346,7 @@ defmodule Ethereum.Validator.Accounts.V2.LogsResponse do
 
   defstruct [:logs]
 
-  field :logs, 1, repeated: true, type: :string
+  field(:logs, 1, repeated: true, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.BeaconStatusResponse do
@@ -371,12 +371,12 @@ defmodule Ethereum.Validator.Accounts.V2.BeaconStatusResponse do
     :chain_head
   ]
 
-  field :beacon_node_endpoint, 1, type: :string
-  field :connected, 2, type: :bool
-  field :syncing, 3, type: :bool
-  field :genesis_time, 4, type: :uint64
-  field :deposit_contract_address, 5, type: :bytes
-  field :chain_head, 6, type: Ethereum.Eth.V1alpha1.ChainHead
+  field(:beacon_node_endpoint, 1, type: :string)
+  field(:connected, 2, type: :bool)
+  field(:syncing, 3, type: :bool)
+  field(:genesis_time, 4, type: :uint64)
+  field(:deposit_contract_address, 5, type: :bytes)
+  field(:chain_head, 6, type: Ethereum.Eth.V1alpha1.ChainHead)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.BackupAccountsRequest do
@@ -390,8 +390,8 @@ defmodule Ethereum.Validator.Accounts.V2.BackupAccountsRequest do
 
   defstruct [:public_keys, :backup_password]
 
-  field :public_keys, 1, repeated: true, type: :bytes
-  field :backup_password, 2, type: :string
+  field(:public_keys, 1, repeated: true, type: :bytes)
+  field(:backup_password, 2, type: :string)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.BackupAccountsResponse do
@@ -404,26 +404,32 @@ defmodule Ethereum.Validator.Accounts.V2.BackupAccountsResponse do
 
   defstruct [:zip_file]
 
-  field :zip_file, 1, type: :bytes
+  field(:zip_file, 1, type: :bytes)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Wallet"
 
-  rpc :CreateWallet,
-      Ethereum.Validator.Accounts.V2.CreateWalletRequest,
-      Ethereum.Validator.Accounts.V2.CreateWalletResponse
+  rpc(
+    :CreateWallet,
+    Ethereum.Validator.Accounts.V2.CreateWalletRequest,
+    Ethereum.Validator.Accounts.V2.CreateWalletResponse
+  )
 
-  rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse
+  rpc(:WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse)
 
-  rpc :GenerateMnemonic,
-      Google.Protobuf.Empty,
-      Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse
+  rpc(
+    :GenerateMnemonic,
+    Google.Protobuf.Empty,
+    Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse
+  )
 
-  rpc :ImportKeystores,
-      Ethereum.Validator.Accounts.V2.ImportKeystoresRequest,
-      Ethereum.Validator.Accounts.V2.ImportKeystoresResponse
+  rpc(
+    :ImportKeystores,
+    Ethereum.Validator.Accounts.V2.ImportKeystoresRequest,
+    Ethereum.Validator.Accounts.V2.ImportKeystoresResponse
+  )
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Wallet.Stub do
@@ -435,15 +441,23 @@ defmodule Ethereum.Validator.Accounts.V2.Accounts.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Accounts"
 
-  rpc :ListAccounts,
-      Ethereum.Validator.Accounts.V2.ListAccountsRequest,
-      Ethereum.Validator.Accounts.V2.ListAccountsResponse
+  rpc(
+    :ListAccounts,
+    Ethereum.Validator.Accounts.V2.ListAccountsRequest,
+    Ethereum.Validator.Accounts.V2.ListAccountsResponse
+  )
 
-  rpc :BackupAccounts,
-      Ethereum.Validator.Accounts.V2.BackupAccountsRequest,
-      Ethereum.Validator.Accounts.V2.BackupAccountsResponse
+  rpc(
+    :BackupAccounts,
+    Ethereum.Validator.Accounts.V2.BackupAccountsRequest,
+    Ethereum.Validator.Accounts.V2.BackupAccountsResponse
+  )
 
-  rpc :ChangePassword, Ethereum.Validator.Accounts.V2.ChangePasswordRequest, Google.Protobuf.Empty
+  rpc(
+    :ChangePassword,
+    Ethereum.Validator.Accounts.V2.ChangePasswordRequest,
+    Google.Protobuf.Empty
+  )
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Accounts.Stub do
@@ -455,27 +469,39 @@ defmodule Ethereum.Validator.Accounts.V2.Beacon.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Beacon"
 
-  rpc :GetBeaconStatus, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.BeaconStatusResponse
+  rpc(
+    :GetBeaconStatus,
+    Google.Protobuf.Empty,
+    Ethereum.Validator.Accounts.V2.BeaconStatusResponse
+  )
 
-  rpc :GetValidatorParticipation,
-      Ethereum.Eth.V1alpha1.GetValidatorParticipationRequest,
-      Ethereum.Eth.V1alpha1.ValidatorParticipationResponse
+  rpc(
+    :GetValidatorParticipation,
+    Ethereum.Eth.V1alpha1.GetValidatorParticipationRequest,
+    Ethereum.Eth.V1alpha1.ValidatorParticipationResponse
+  )
 
-  rpc :GetValidatorPerformance,
-      Ethereum.Eth.V1alpha1.ValidatorPerformanceRequest,
-      Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse
+  rpc(
+    :GetValidatorPerformance,
+    Ethereum.Eth.V1alpha1.ValidatorPerformanceRequest,
+    Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse
+  )
 
-  rpc :GetValidators,
-      Ethereum.Eth.V1alpha1.ListValidatorsRequest,
-      Ethereum.Eth.V1alpha1.Validators
+  rpc(
+    :GetValidators,
+    Ethereum.Eth.V1alpha1.ListValidatorsRequest,
+    Ethereum.Eth.V1alpha1.Validators
+  )
 
-  rpc :GetValidatorBalances,
-      Ethereum.Eth.V1alpha1.ListValidatorBalancesRequest,
-      Ethereum.Eth.V1alpha1.ValidatorBalances
+  rpc(
+    :GetValidatorBalances,
+    Ethereum.Eth.V1alpha1.ListValidatorBalancesRequest,
+    Ethereum.Eth.V1alpha1.ValidatorBalances
+  )
 
-  rpc :GetValidatorQueue, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ValidatorQueue
+  rpc(:GetValidatorQueue, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ValidatorQueue)
 
-  rpc :GetPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Peers
+  rpc(:GetPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Peers)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Beacon.Stub do
@@ -487,21 +513,27 @@ defmodule Ethereum.Validator.Accounts.V2.Health.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Health"
 
-  rpc :GetBeaconNodeConnection,
-      Google.Protobuf.Empty,
-      Ethereum.Validator.Accounts.V2.NodeConnectionResponse
+  rpc(
+    :GetBeaconNodeConnection,
+    Google.Protobuf.Empty,
+    Ethereum.Validator.Accounts.V2.NodeConnectionResponse
+  )
 
-  rpc :GetLogsEndpoints,
-      Google.Protobuf.Empty,
-      Ethereum.Validator.Accounts.V2.LogsEndpointResponse
+  rpc(
+    :GetLogsEndpoints,
+    Google.Protobuf.Empty,
+    Ethereum.Validator.Accounts.V2.LogsEndpointResponse
+  )
 
-  rpc :GetVersion, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.VersionResponse
+  rpc(:GetVersion, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.VersionResponse)
 
-  rpc :StreamBeaconLogs, Google.Protobuf.Empty, stream(Ethereum.Beacon.Rpc.V1.LogsResponse)
+  rpc(:StreamBeaconLogs, Google.Protobuf.Empty, stream(Ethereum.Beacon.Rpc.V1.LogsResponse))
 
-  rpc :StreamValidatorLogs,
-      Google.Protobuf.Empty,
-      stream(Ethereum.Validator.Accounts.V2.LogsResponse)
+  rpc(
+    :StreamValidatorLogs,
+    Google.Protobuf.Empty,
+    stream(Ethereum.Validator.Accounts.V2.LogsResponse)
+  )
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Health.Stub do
@@ -513,17 +545,21 @@ defmodule Ethereum.Validator.Accounts.V2.Auth.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Auth"
 
-  rpc :HasUsedWeb, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.HasUsedWebResponse
+  rpc(:HasUsedWeb, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.HasUsedWebResponse)
 
-  rpc :Login,
-      Ethereum.Validator.Accounts.V2.AuthRequest,
-      Ethereum.Validator.Accounts.V2.AuthResponse
+  rpc(
+    :Login,
+    Ethereum.Validator.Accounts.V2.AuthRequest,
+    Ethereum.Validator.Accounts.V2.AuthResponse
+  )
 
-  rpc :Signup,
-      Ethereum.Validator.Accounts.V2.AuthRequest,
-      Ethereum.Validator.Accounts.V2.AuthResponse
+  rpc(
+    :Signup,
+    Ethereum.Validator.Accounts.V2.AuthRequest,
+    Ethereum.Validator.Accounts.V2.AuthResponse
+  )
 
-  rpc :Logout, Google.Protobuf.Empty, Google.Protobuf.Empty
+  rpc(:Logout, Google.Protobuf.Empty, Google.Protobuf.Empty)
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Auth.Stub do
