@@ -1,6 +1,3 @@
-[submodule "ethereumapis"]
-	path = ethereumapis
-	url = git@github.com:prysmaticlabs/ethereumapis.git
 [submodule "prysm"]
 	path = prysm
 	url = https://github.com/prysmaticlabs/prysm.git
