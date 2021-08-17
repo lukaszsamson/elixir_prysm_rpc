@@ -33,6 +33,79 @@ defmodule Ethereum.Eth.V1alpha1.ValidatorStatus do
   field :PARTIALLY_DEPOSITED, 8
 end
 
+defmodule Ethereum.Eth.V1alpha1.SyncMessageBlockRootResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          root: binary
+        }
+
+  defstruct [:root]
+
+  field :root, 1, type: :bytes
+end
+
+defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          public_key: binary,
+          slot: non_neg_integer
+        }
+
+  defstruct [:public_key, :slot]
+
+  field :public_key, 1, type: :bytes
+  field :slot, 2, type: :uint64
+end
+
+defmodule Ethereum.Eth.V1alpha1.SyncCommitteeContributionRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          slot: non_neg_integer,
+          public_key: binary,
+          subnet_id: non_neg_integer
+        }
+
+  defstruct [:slot, :public_key, :subnet_id]
+
+  field :slot, 1, type: :uint64
+  field :public_key, 2, type: :bytes
+  field :subnet_id, 3, type: :uint64
+end
+
+defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          indices: [non_neg_integer]
+        }
+
+  defstruct [:indices]
+
+  field :indices, 1, repeated: true, type: :uint64
+end
+
+defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          block: {atom, any}
+        }
+
+  defstruct [:block]
+
+  oneof :block, 0
+  field :phase0_block, 1, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
+  field :altair_block, 2, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
+end
+
 defmodule Ethereum.Eth.V1alpha1.DomainRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -629,6 +702,19 @@ defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse do
     type: Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse
 end
 
+defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          verified_only: boolean
+        }
+
+  defstruct [:verified_only]
+
+  field :verified_only, 1, type: :bool
+end
+
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconNodeValidator"
@@ -690,6 +776,34 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :CheckDoppelGanger,
       Ethereum.Eth.V1alpha1.DoppelGangerRequest,
       Ethereum.Eth.V1alpha1.DoppelGangerResponse
+
+  rpc :GetBlockAltair, Ethereum.Eth.V1alpha1.BlockRequest, Ethereum.Eth.V1alpha1.BeaconBlockAltair
+
+  rpc :ProposeBlockAltair,
+      Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair,
+      Ethereum.Eth.V1alpha1.ProposeResponse
+
+  rpc :GetSyncMessageBlockRoot,
+      Google.Protobuf.Empty,
+      Ethereum.Eth.V1alpha1.SyncMessageBlockRootResponse
+
+  rpc :SubmitSyncMessage, Ethereum.Eth.V1alpha1.SyncCommitteeMessage, Google.Protobuf.Empty
+
+  rpc :GetSyncSubcommitteeIndex,
+      Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexRequest,
+      Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexResponse
+
+  rpc :GetSyncCommitteeContribution,
+      Ethereum.Eth.V1alpha1.SyncCommitteeContributionRequest,
+      Ethereum.Eth.V1alpha1.SyncCommitteeContribution
+
+  rpc :SubmitSignedContributionAndProof,
+      Ethereum.Eth.V1alpha1.SignedContributionAndProof,
+      Google.Protobuf.Empty
+
+  rpc :StreamBlocksAltair,
+      Ethereum.Eth.V1alpha1.StreamBlocksRequest,
+      stream(Ethereum.Eth.V1alpha1.StreamBlocksResponse)
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Stub do

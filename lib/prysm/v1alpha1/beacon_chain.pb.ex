@@ -135,17 +135,43 @@ defmodule Ethereum.Eth.V1alpha1.ListBlocksResponse do
   field :total_size, 3, type: :int32
 end
 
-defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
+defmodule Ethereum.Eth.V1alpha1.ListBlocksResponseAltair do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          verified_only: boolean
+          blockContainers: [Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair.t()],
+          next_page_token: String.t(),
+          total_size: integer
         }
 
-  defstruct [:verified_only]
+  defstruct [:blockContainers, :next_page_token, :total_size]
 
-  field :verified_only, 1, type: :bool
+  field :blockContainers, 1,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair
+
+  field :next_page_token, 2, type: :string
+  field :total_size, 3, type: :int32
+end
+
+defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          block: {atom, any},
+          block_root: binary,
+          canonical: boolean
+        }
+
+  defstruct [:block, :block_root, :canonical]
+
+  oneof :block, 0
+  field :block_root, 1, type: :bytes
+  field :canonical, 2, type: :bool
+  field :phase0_block, 3, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
+  field :altair_block, 4, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
@@ -888,6 +914,10 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   rpc :ListBlocks,
       Ethereum.Eth.V1alpha1.ListBlocksRequest,
       Ethereum.Eth.V1alpha1.ListBlocksResponse
+
+  rpc :ListBlocksAltair,
+      Ethereum.Eth.V1alpha1.ListBlocksRequest,
+      Ethereum.Eth.V1alpha1.ListBlocksResponseAltair
 
   rpc :StreamBlocks,
       Ethereum.Eth.V1alpha1.StreamBlocksRequest,
