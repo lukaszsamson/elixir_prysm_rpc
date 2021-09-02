@@ -1,7 +1,7 @@
 defmodule PrysmRPC.Channel do
   use GenServer
   require Logger
-  alias Ethereum.Eth.V1alpha1, as: PrysmApi
+  alias Ethereum.Validator.Accounts.V2, as: PrysmApi
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args)

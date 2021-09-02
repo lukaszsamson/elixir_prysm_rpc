@@ -1,4 +1,4 @@
-defmodule Ethereum.Eth.V1alpha1.KeymanagerKind do
+defmodule Ethereum.Validator.Accounts.V2.KeymanagerKind do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
   @type t :: integer | :DERIVED | :IMPORTED | :REMOTE
@@ -10,12 +10,12 @@ defmodule Ethereum.Eth.V1alpha1.KeymanagerKind do
   field :REMOTE, 2
 end
 
-defmodule Ethereum.Eth.V1alpha1.CreateWalletRequest do
+defmodule Ethereum.Validator.Accounts.V2.CreateWalletRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          keymanager: Ethereum.Eth.V1alpha1.KeymanagerKind.t(),
+          keymanager: Ethereum.Validator.Accounts.V2.KeymanagerKind.t(),
           wallet_password: String.t(),
           mnemonic: String.t(),
           num_accounts: non_neg_integer,
@@ -36,7 +36,7 @@ defmodule Ethereum.Eth.V1alpha1.CreateWalletRequest do
     :remote_ca_crt_path
   ]
 
-  field :keymanager, 1, type: Ethereum.Eth.V1alpha1.KeymanagerKind, enum: true
+  field :keymanager, 1, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
   field :wallet_password, 2, type: :string
   field :mnemonic, 3, type: :string
   field :num_accounts, 4, type: :uint64
@@ -46,20 +46,20 @@ defmodule Ethereum.Eth.V1alpha1.CreateWalletRequest do
   field :remote_ca_crt_path, 8, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.CreateWalletResponse do
+defmodule Ethereum.Validator.Accounts.V2.CreateWalletResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          wallet: Ethereum.Eth.V1alpha1.WalletResponse.t() | nil
+          wallet: Ethereum.Validator.Accounts.V2.WalletResponse.t() | nil
         }
 
   defstruct [:wallet]
 
-  field :wallet, 1, type: Ethereum.Eth.V1alpha1.WalletResponse
+  field :wallet, 1, type: Ethereum.Validator.Accounts.V2.WalletResponse
 end
 
-defmodule Ethereum.Eth.V1alpha1.EditWalletConfigRequest do
+defmodule Ethereum.Validator.Accounts.V2.EditWalletConfigRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -78,7 +78,7 @@ defmodule Ethereum.Eth.V1alpha1.EditWalletConfigRequest do
   field :remote_ca_crt_path, 4, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.GenerateMnemonicResponse do
+defmodule Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -91,22 +91,22 @@ defmodule Ethereum.Eth.V1alpha1.GenerateMnemonicResponse do
   field :mnemonic, 1, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.WalletResponse do
+defmodule Ethereum.Validator.Accounts.V2.WalletResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
           wallet_path: String.t(),
-          keymanager_kind: Ethereum.Eth.V1alpha1.KeymanagerKind.t()
+          keymanager_kind: Ethereum.Validator.Accounts.V2.KeymanagerKind.t()
         }
 
   defstruct [:wallet_path, :keymanager_kind]
 
   field :wallet_path, 1, type: :string
-  field :keymanager_kind, 2, type: Ethereum.Eth.V1alpha1.KeymanagerKind, enum: true
+  field :keymanager_kind, 2, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
 end
 
-defmodule Ethereum.Eth.V1alpha1.RecoverWalletRequest do
+defmodule Ethereum.Validator.Accounts.V2.RecoverWalletRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -127,7 +127,7 @@ defmodule Ethereum.Eth.V1alpha1.RecoverWalletRequest do
   field :mnemonic25th_word, 5, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.ListAccountsRequest do
+defmodule Ethereum.Validator.Accounts.V2.ListAccountsRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -146,24 +146,24 @@ defmodule Ethereum.Eth.V1alpha1.ListAccountsRequest do
   field :all, 4, type: :bool
 end
 
-defmodule Ethereum.Eth.V1alpha1.ListAccountsResponse do
+defmodule Ethereum.Validator.Accounts.V2.ListAccountsResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          accounts: [Ethereum.Eth.V1alpha1.Account.t()],
+          accounts: [Ethereum.Validator.Accounts.V2.Account.t()],
           next_page_token: String.t(),
           total_size: integer
         }
 
   defstruct [:accounts, :next_page_token, :total_size]
 
-  field :accounts, 1, repeated: true, type: Ethereum.Eth.V1alpha1.Account
+  field :accounts, 1, repeated: true, type: Ethereum.Validator.Accounts.V2.Account
   field :next_page_token, 2, type: :string
   field :total_size, 3, type: :int32
 end
 
-defmodule Ethereum.Eth.V1alpha1.Account do
+defmodule Ethereum.Validator.Accounts.V2.Account do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -182,7 +182,7 @@ defmodule Ethereum.Eth.V1alpha1.Account do
   field :derivation_path, 4, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.AccountRequest do
+defmodule Ethereum.Validator.Accounts.V2.AccountRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -197,7 +197,7 @@ defmodule Ethereum.Eth.V1alpha1.AccountRequest do
   field :indices, 2, repeated: true, type: :uint64
 end
 
-defmodule Ethereum.Eth.V1alpha1.AuthRequest do
+defmodule Ethereum.Validator.Accounts.V2.AuthRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -212,7 +212,7 @@ defmodule Ethereum.Eth.V1alpha1.AuthRequest do
   field :password_confirmation, 2, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.AuthResponse do
+defmodule Ethereum.Validator.Accounts.V2.AuthResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -227,7 +227,7 @@ defmodule Ethereum.Eth.V1alpha1.AuthResponse do
   field :token_expiration, 2, type: :uint64
 end
 
-defmodule Ethereum.Eth.V1alpha1.NodeConnectionResponse do
+defmodule Ethereum.Validator.Accounts.V2.NodeConnectionResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -254,7 +254,7 @@ defmodule Ethereum.Eth.V1alpha1.NodeConnectionResponse do
   field :deposit_contract_address, 5, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.LogsEndpointResponse do
+defmodule Ethereum.Validator.Accounts.V2.LogsEndpointResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -269,7 +269,7 @@ defmodule Ethereum.Eth.V1alpha1.LogsEndpointResponse do
   field :beacon_logs_endpoint, 2, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.VersionResponse do
+defmodule Ethereum.Validator.Accounts.V2.VersionResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -284,7 +284,7 @@ defmodule Ethereum.Eth.V1alpha1.VersionResponse do
   field :validator, 2, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.ChangePasswordRequest do
+defmodule Ethereum.Validator.Accounts.V2.ChangePasswordRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -301,7 +301,7 @@ defmodule Ethereum.Eth.V1alpha1.ChangePasswordRequest do
   field :password_confirmation, 3, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.HasWalletResponse do
+defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -314,7 +314,7 @@ defmodule Ethereum.Eth.V1alpha1.HasWalletResponse do
   field :wallet_exists, 1, type: :bool
 end
 
-defmodule Ethereum.Eth.V1alpha1.ImportKeystoresRequest do
+defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -329,7 +329,7 @@ defmodule Ethereum.Eth.V1alpha1.ImportKeystoresRequest do
   field :keystores_password, 2, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.ImportKeystoresResponse do
+defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -342,7 +342,7 @@ defmodule Ethereum.Eth.V1alpha1.ImportKeystoresResponse do
   field :imported_public_keys, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.HasUsedWebResponse do
+defmodule Ethereum.Validator.Accounts.V2.HasUsedWebResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -357,7 +357,7 @@ defmodule Ethereum.Eth.V1alpha1.HasUsedWebResponse do
   field :has_wallet, 2, type: :bool
 end
 
-defmodule Ethereum.Eth.V1alpha1.BeaconStatusResponse do
+defmodule Ethereum.Validator.Accounts.V2.BeaconStatusResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -387,7 +387,7 @@ defmodule Ethereum.Eth.V1alpha1.BeaconStatusResponse do
   field :chain_head, 6, type: Ethereum.Eth.V1alpha1.ChainHead
 end
 
-defmodule Ethereum.Eth.V1alpha1.VoluntaryExitRequest do
+defmodule Ethereum.Validator.Accounts.V2.VoluntaryExitRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -400,7 +400,7 @@ defmodule Ethereum.Eth.V1alpha1.VoluntaryExitRequest do
   field :public_keys, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.VoluntaryExitResponse do
+defmodule Ethereum.Validator.Accounts.V2.VoluntaryExitResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -413,7 +413,7 @@ defmodule Ethereum.Eth.V1alpha1.VoluntaryExitResponse do
   field :exited_keys, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.BackupAccountsRequest do
+defmodule Ethereum.Validator.Accounts.V2.BackupAccountsRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -428,7 +428,7 @@ defmodule Ethereum.Eth.V1alpha1.BackupAccountsRequest do
   field :backup_password, 2, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.BackupAccountsResponse do
+defmodule Ethereum.Validator.Accounts.V2.BackupAccountsResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -441,7 +441,7 @@ defmodule Ethereum.Eth.V1alpha1.BackupAccountsResponse do
   field :zip_file, 1, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.DeleteAccountsRequest do
+defmodule Ethereum.Validator.Accounts.V2.DeleteAccountsRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -454,7 +454,7 @@ defmodule Ethereum.Eth.V1alpha1.DeleteAccountsRequest do
   field :public_keys_to_delete, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.DeleteAccountsResponse do
+defmodule Ethereum.Validator.Accounts.V2.DeleteAccountsResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -467,7 +467,7 @@ defmodule Ethereum.Eth.V1alpha1.DeleteAccountsResponse do
   field :deleted_keys, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Eth.V1alpha1.ExportSlashingProtectionResponse do
+defmodule Ethereum.Validator.Accounts.V2.ExportSlashingProtectionResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -480,7 +480,7 @@ defmodule Ethereum.Eth.V1alpha1.ExportSlashingProtectionResponse do
   field :file, 1, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.ImportSlashingProtectionRequest do
+defmodule Ethereum.Validator.Accounts.V2.ImportSlashingProtectionRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -493,65 +493,67 @@ defmodule Ethereum.Eth.V1alpha1.ImportSlashingProtectionRequest do
   field :slashing_protection_json, 1, type: :string
 end
 
-defmodule Ethereum.Eth.V1alpha1.Wallet.Service do
+defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Wallet"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.Wallet"
 
   rpc :CreateWallet,
-      Ethereum.Eth.V1alpha1.CreateWalletRequest,
-      Ethereum.Eth.V1alpha1.CreateWalletResponse
+      Ethereum.Validator.Accounts.V2.CreateWalletRequest,
+      Ethereum.Validator.Accounts.V2.CreateWalletResponse
 
-  rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.WalletResponse
+  rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse
 
-  rpc :GenerateMnemonic, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.GenerateMnemonicResponse
+  rpc :GenerateMnemonic,
+      Google.Protobuf.Empty,
+      Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse
 
   rpc :ImportKeystores,
-      Ethereum.Eth.V1alpha1.ImportKeystoresRequest,
-      Ethereum.Eth.V1alpha1.ImportKeystoresResponse
+      Ethereum.Validator.Accounts.V2.ImportKeystoresRequest,
+      Ethereum.Validator.Accounts.V2.ImportKeystoresResponse
 
   rpc :RecoverWallet,
-      Ethereum.Eth.V1alpha1.RecoverWalletRequest,
-      Ethereum.Eth.V1alpha1.CreateWalletResponse
+      Ethereum.Validator.Accounts.V2.RecoverWalletRequest,
+      Ethereum.Validator.Accounts.V2.CreateWalletResponse
 end
 
-defmodule Ethereum.Eth.V1alpha1.Wallet.Stub do
+defmodule Ethereum.Validator.Accounts.V2.Wallet.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Wallet.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Wallet.Service
 end
 
-defmodule Ethereum.Eth.V1alpha1.Accounts.Service do
+defmodule Ethereum.Validator.Accounts.V2.Accounts.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Accounts"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.Accounts"
 
   rpc :ListAccounts,
-      Ethereum.Eth.V1alpha1.ListAccountsRequest,
-      Ethereum.Eth.V1alpha1.ListAccountsResponse
+      Ethereum.Validator.Accounts.V2.ListAccountsRequest,
+      Ethereum.Validator.Accounts.V2.ListAccountsResponse
 
   rpc :BackupAccounts,
-      Ethereum.Eth.V1alpha1.BackupAccountsRequest,
-      Ethereum.Eth.V1alpha1.BackupAccountsResponse
+      Ethereum.Validator.Accounts.V2.BackupAccountsRequest,
+      Ethereum.Validator.Accounts.V2.BackupAccountsResponse
 
   rpc :DeleteAccounts,
-      Ethereum.Eth.V1alpha1.DeleteAccountsRequest,
-      Ethereum.Eth.V1alpha1.DeleteAccountsResponse
+      Ethereum.Validator.Accounts.V2.DeleteAccountsRequest,
+      Ethereum.Validator.Accounts.V2.DeleteAccountsResponse
 
-  rpc :ChangePassword, Ethereum.Eth.V1alpha1.ChangePasswordRequest, Google.Protobuf.Empty
+  rpc :ChangePassword, Ethereum.Validator.Accounts.V2.ChangePasswordRequest, Google.Protobuf.Empty
 
   rpc :VoluntaryExit,
-      Ethereum.Eth.V1alpha1.VoluntaryExitRequest,
-      Ethereum.Eth.V1alpha1.VoluntaryExitResponse
+      Ethereum.Validator.Accounts.V2.VoluntaryExitRequest,
+      Ethereum.Validator.Accounts.V2.VoluntaryExitResponse
 end
 
-defmodule Ethereum.Eth.V1alpha1.Accounts.Stub do
+defmodule Ethereum.Validator.Accounts.V2.Accounts.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Accounts.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Accounts.Service
 end
 
-defmodule Ethereum.Eth.V1alpha1.Beacon.Service do
+defmodule Ethereum.Validator.Accounts.V2.Beacon.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Beacon"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.Beacon"
 
-  rpc :GetBeaconStatus, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.BeaconStatusResponse
+  rpc :GetBeaconStatus, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.BeaconStatusResponse
 
   rpc :GetValidatorParticipation,
       Ethereum.Eth.V1alpha1.GetValidatorParticipationRequest,
@@ -574,65 +576,71 @@ defmodule Ethereum.Eth.V1alpha1.Beacon.Service do
   rpc :GetPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Peers
 end
 
-defmodule Ethereum.Eth.V1alpha1.Beacon.Stub do
+defmodule Ethereum.Validator.Accounts.V2.Beacon.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Beacon.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Beacon.Service
 end
 
-defmodule Ethereum.Eth.V1alpha1.SlashingProtection.Service do
+defmodule Ethereum.Validator.Accounts.V2.SlashingProtection.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.SlashingProtection"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.SlashingProtection"
 
   rpc :ExportSlashingProtection,
       Google.Protobuf.Empty,
-      Ethereum.Eth.V1alpha1.ExportSlashingProtectionResponse
+      Ethereum.Validator.Accounts.V2.ExportSlashingProtectionResponse
 
   rpc :ImportSlashingProtection,
-      Ethereum.Eth.V1alpha1.ImportSlashingProtectionRequest,
+      Ethereum.Validator.Accounts.V2.ImportSlashingProtectionRequest,
       Google.Protobuf.Empty
 end
 
-defmodule Ethereum.Eth.V1alpha1.SlashingProtection.Stub do
+defmodule Ethereum.Validator.Accounts.V2.SlashingProtection.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.SlashingProtection.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.SlashingProtection.Service
 end
 
-defmodule Ethereum.Eth.V1alpha1.ValidatorHealth.Service do
+defmodule Ethereum.Validator.Accounts.V2.Health.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.ValidatorHealth"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.Health"
 
   rpc :GetBeaconNodeConnection,
       Google.Protobuf.Empty,
-      Ethereum.Eth.V1alpha1.NodeConnectionResponse
+      Ethereum.Validator.Accounts.V2.NodeConnectionResponse
 
-  rpc :GetLogsEndpoints, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.LogsEndpointResponse
+  rpc :GetLogsEndpoints,
+      Google.Protobuf.Empty,
+      Ethereum.Validator.Accounts.V2.LogsEndpointResponse
 
-  rpc :GetVersion, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.VersionResponse
+  rpc :GetVersion, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.VersionResponse
 
   rpc :StreamBeaconLogs, Google.Protobuf.Empty, stream(Ethereum.Eth.V1alpha1.LogsResponse)
 
   rpc :StreamValidatorLogs, Google.Protobuf.Empty, stream(Ethereum.Eth.V1alpha1.LogsResponse)
 end
 
-defmodule Ethereum.Eth.V1alpha1.ValidatorHealth.Stub do
+defmodule Ethereum.Validator.Accounts.V2.Health.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.ValidatorHealth.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Health.Service
 end
 
-defmodule Ethereum.Eth.V1alpha1.Auth.Service do
+defmodule Ethereum.Validator.Accounts.V2.Auth.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Auth"
+  use GRPC.Service, name: "ethereum.validator.accounts.v2.Auth"
 
-  rpc :HasUsedWeb, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.HasUsedWebResponse
+  rpc :HasUsedWeb, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.HasUsedWebResponse
 
-  rpc :Login, Ethereum.Eth.V1alpha1.AuthRequest, Ethereum.Eth.V1alpha1.AuthResponse
+  rpc :Login,
+      Ethereum.Validator.Accounts.V2.AuthRequest,
+      Ethereum.Validator.Accounts.V2.AuthResponse
 
-  rpc :Signup, Ethereum.Eth.V1alpha1.AuthRequest, Ethereum.Eth.V1alpha1.AuthResponse
+  rpc :Signup,
+      Ethereum.Validator.Accounts.V2.AuthRequest,
+      Ethereum.Validator.Accounts.V2.AuthResponse
 
   rpc :Logout, Google.Protobuf.Empty, Google.Protobuf.Empty
 end
 
-defmodule Ethereum.Eth.V1alpha1.Auth.Stub do
+defmodule Ethereum.Validator.Accounts.V2.Auth.Stub do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Auth.Service
+  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Auth.Service
 end
