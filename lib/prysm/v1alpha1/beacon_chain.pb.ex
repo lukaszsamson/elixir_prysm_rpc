@@ -135,27 +135,24 @@ defmodule Ethereum.Eth.V1alpha1.ListBlocksResponse do
   field :total_size, 3, type: :int32
 end
 
-defmodule Ethereum.Eth.V1alpha1.ListBlocksResponseAltair do
+defmodule Ethereum.Eth.V1alpha1.ListBeaconBlocksResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          blockContainers: [Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair.t()],
+          block_containers: [Ethereum.Eth.V1alpha1.BeaconBlockContainer.t()],
           next_page_token: String.t(),
           total_size: integer
         }
 
-  defstruct [:blockContainers, :next_page_token, :total_size]
+  defstruct [:block_containers, :next_page_token, :total_size]
 
-  field :blockContainers, 1,
-    repeated: true,
-    type: Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair
-
+  field :block_containers, 1, repeated: true, type: Ethereum.Eth.V1alpha1.BeaconBlockContainer
   field :next_page_token, 2, type: :string
   field :total_size, 3, type: :int32
 end
 
-defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair do
+defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -172,23 +169,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainerAltair do
   field :canonical, 2, type: :bool
   field :phase0_block, 3, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
   field :altair_block, 4, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
-end
-
-defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          block: Ethereum.Eth.V1alpha1.SignedBeaconBlock.t() | nil,
-          block_root: binary,
-          canonical: boolean
-        }
-
-  defstruct [:block, :block_root, :canonical]
-
-  field :block, 1, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock
-  field :block_root, 2, type: :bytes
-  field :canonical, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1alpha1.ChainHead do
@@ -542,7 +522,8 @@ defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
           balances_after_epoch_transition: [non_neg_integer],
           missing_validators: [binary],
           average_active_validator_balance: float | :infinity | :negative_infinity | :nan,
-          public_keys: [binary]
+          public_keys: [binary],
+          inactivity_scores: [non_neg_integer]
         }
 
   defstruct [
@@ -556,12 +537,13 @@ defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
     :balances_after_epoch_transition,
     :missing_validators,
     :average_active_validator_balance,
-    :public_keys
+    :public_keys,
+    :inactivity_scores
   ]
 
   field :current_effective_balances, 1, repeated: true, type: :uint64
-  field :inclusion_slots, 2, repeated: true, type: :uint64
-  field :inclusion_distances, 3, repeated: true, type: :uint64
+  field :inclusion_slots, 2, repeated: true, type: :uint64, deprecated: true
+  field :inclusion_distances, 3, repeated: true, type: :uint64, deprecated: true
   field :correctly_voted_source, 4, repeated: true, type: :bool
   field :correctly_voted_target, 5, repeated: true, type: :bool
   field :correctly_voted_head, 6, repeated: true, type: :bool
@@ -570,6 +552,7 @@ defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
   field :missing_validators, 9, repeated: true, type: :bytes
   field :average_active_validator_balance, 10, type: :float
   field :public_keys, 11, repeated: true, type: :bytes
+  field :inactivity_scores, 12, repeated: true, type: :uint64
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorQueue do
@@ -819,7 +802,8 @@ defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond.IndividualVote do
           is_previous_epoch_head_attester: boolean,
           current_epoch_effective_balance_gwei: non_neg_integer,
           inclusion_slot: non_neg_integer,
-          inclusion_distance: non_neg_integer
+          inclusion_distance: non_neg_integer,
+          inactivity_score: non_neg_integer
         }
 
   defstruct [
@@ -837,7 +821,8 @@ defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond.IndividualVote do
     :is_previous_epoch_head_attester,
     :current_epoch_effective_balance_gwei,
     :inclusion_slot,
-    :inclusion_distance
+    :inclusion_distance,
+    :inactivity_score
   ]
 
   field :epoch, 1, type: :uint64
@@ -853,8 +838,9 @@ defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond.IndividualVote do
   field :is_previous_epoch_target_attester, 11, type: :bool
   field :is_previous_epoch_head_attester, 12, type: :bool
   field :current_epoch_effective_balance_gwei, 13, type: :uint64
-  field :inclusion_slot, 14, type: :uint64
-  field :inclusion_distance, 15, type: :uint64
+  field :inclusion_slot, 14, type: :uint64, deprecated: true
+  field :inclusion_distance, 15, type: :uint64, deprecated: true
+  field :inactivity_score, 16, type: :uint64
 end
 
 defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond do
@@ -915,9 +901,9 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
       Ethereum.Eth.V1alpha1.ListBlocksRequest,
       Ethereum.Eth.V1alpha1.ListBlocksResponse
 
-  rpc :ListBlocksAltair,
+  rpc :ListBeaconBlocks,
       Ethereum.Eth.V1alpha1.ListBlocksRequest,
-      Ethereum.Eth.V1alpha1.ListBlocksResponseAltair
+      Ethereum.Eth.V1alpha1.ListBeaconBlocksResponse
 
   rpc :StreamBlocks,
       Ethereum.Eth.V1alpha1.StreamBlocksRequest,

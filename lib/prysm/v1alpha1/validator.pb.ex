@@ -751,6 +751,14 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
       Ethereum.Eth.V1alpha1.SignedBeaconBlock,
       Ethereum.Eth.V1alpha1.ProposeResponse
 
+  rpc :GetBeaconBlock,
+      Ethereum.Eth.V1alpha1.BlockRequest,
+      Ethereum.Eth.V1alpha1.GenericBeaconBlock
+
+  rpc :ProposeBeaconBlock,
+      Ethereum.Eth.V1alpha1.GenericSignedBeaconBlock,
+      Ethereum.Eth.V1alpha1.ProposeResponse
+
   rpc :GetAttestationData,
       Ethereum.Eth.V1alpha1.AttestationDataRequest,
       Ethereum.Eth.V1alpha1.AttestationData
@@ -776,12 +784,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :CheckDoppelGanger,
       Ethereum.Eth.V1alpha1.DoppelGangerRequest,
       Ethereum.Eth.V1alpha1.DoppelGangerResponse
-
-  rpc :GetBlockAltair, Ethereum.Eth.V1alpha1.BlockRequest, Ethereum.Eth.V1alpha1.BeaconBlockAltair
-
-  rpc :ProposeBlockAltair,
-      Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair,
-      Ethereum.Eth.V1alpha1.ProposeResponse
 
   rpc :GetSyncMessageBlockRoot,
       Google.Protobuf.Empty,
