@@ -1,7 +1,6 @@
 defmodule PrysmRPC.Channel do
   use GenServer
   require Logger
-  alias Ethereum.Validator.Accounts.V2, as: PrysmApi
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args)
@@ -39,9 +38,7 @@ defmodule PrysmRPC.Channel do
 
     {:ok,
      %{
-       channel: channel,
-       password: args |> Keyword.fetch!(:password),
-       token_expiration: 0
+       channel: channel
      }}
   end
 
@@ -50,20 +47,10 @@ defmodule PrysmRPC.Channel do
         :get,
         _,
         state = %{
-          channel: channel,
-          token_expiration: token_expiration,
-          password: password
+          channel: channel
         }
       ) do
-    {channel, token_expiration} =
-      if system_time() >= token_expiration - 5 do
-        {token, token_expiration} = login(channel, password)
-        {%GRPC.Channel{channel | headers: headers(token)}, token_expiration}
-      else
-        {channel, token_expiration}
-      end
-
-    {:reply, channel, %{state | channel: channel, token_expiration: token_expiration}}
+    {:reply, channel, state}
   end
 
   @impl true
@@ -74,24 +61,4 @@ defmodule PrysmRPC.Channel do
   def handle_info({:gun_down, _, _, _, _}, state) do
     {:noreply, state}
   end
-
-  defp headers(token) do
-    [{"authorization", "Bearer #{token}"}]
-  end
-
-  defp login(channel, password) do
-    req = PrysmApi.AuthRequest.new(password: password, password_confirmation: password)
-
-    {:ok,
-     %PrysmApi.AuthResponse{
-       token: token,
-       token_expiration: token_expiration
-     }} = PrysmApi.Auth.Stub.login(channel, req)
-
-    Logger.info("#{__MODULE__} logged in, token valid for #{token_expiration - system_time()}s")
-
-    {token, token_expiration}
-  end
-
-  defp system_time, do: System.system_time(:second)
 end
