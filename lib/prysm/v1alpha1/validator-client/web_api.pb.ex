@@ -127,6 +127,21 @@ defmodule Ethereum.Validator.Accounts.V2.RecoverWalletRequest do
   field :mnemonic25th_word, 5, type: :string
 end
 
+defmodule Ethereum.Validator.Accounts.V2.ValidateKeystoresRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          keystores: [String.t()],
+          keystores_password: String.t()
+        }
+
+  defstruct [:keystores, :keystores_password]
+
+  field :keystores, 1, repeated: true, type: :string
+  field :keystores_password, 2, type: :string
+end
+
 defmodule Ethereum.Validator.Accounts.V2.ListAccountsRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -197,36 +212,6 @@ defmodule Ethereum.Validator.Accounts.V2.AccountRequest do
   field :indices, 2, repeated: true, type: :uint64
 end
 
-defmodule Ethereum.Validator.Accounts.V2.AuthRequest do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          password: String.t(),
-          password_confirmation: String.t()
-        }
-
-  defstruct [:password, :password_confirmation]
-
-  field :password, 1, type: :string
-  field :password_confirmation, 2, type: :string
-end
-
-defmodule Ethereum.Validator.Accounts.V2.AuthResponse do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          token: String.t(),
-          token_expiration: non_neg_integer
-        }
-
-  defstruct [:token, :token_expiration]
-
-  field :token, 1, type: :string
-  field :token_expiration, 2, type: :uint64
-end
-
 defmodule Ethereum.Validator.Accounts.V2.NodeConnectionResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -284,23 +269,6 @@ defmodule Ethereum.Validator.Accounts.V2.VersionResponse do
   field :validator, 2, type: :string
 end
 
-defmodule Ethereum.Validator.Accounts.V2.ChangePasswordRequest do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          current_password: String.t(),
-          password: String.t(),
-          password_confirmation: String.t()
-        }
-
-  defstruct [:current_password, :password, :password_confirmation]
-
-  field :current_password, 1, type: :string
-  field :password, 2, type: :string
-  field :password_confirmation, 3, type: :string
-end
-
 defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -342,7 +310,20 @@ defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresResponse do
   field :imported_public_keys, 1, repeated: true, type: :bytes
 end
 
-defmodule Ethereum.Validator.Accounts.V2.HasUsedWebResponse do
+defmodule Ethereum.Validator.Accounts.V2.InitializeAuthRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          token: String.t()
+        }
+
+  defstruct [:token]
+
+  field :token, 1, type: :string
+end
+
+defmodule Ethereum.Validator.Accounts.V2.InitializeAuthResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -503,13 +484,13 @@ defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
 
   rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse
 
-  rpc :GenerateMnemonic,
-      Google.Protobuf.Empty,
-      Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse
-
   rpc :ImportKeystores,
       Ethereum.Validator.Accounts.V2.ImportKeystoresRequest,
       Ethereum.Validator.Accounts.V2.ImportKeystoresResponse
+
+  rpc :ValidateKeystores,
+      Ethereum.Validator.Accounts.V2.ValidateKeystoresRequest,
+      Google.Protobuf.Empty
 
   rpc :RecoverWallet,
       Ethereum.Validator.Accounts.V2.RecoverWalletRequest,
@@ -536,8 +517,6 @@ defmodule Ethereum.Validator.Accounts.V2.Accounts.Service do
   rpc :DeleteAccounts,
       Ethereum.Validator.Accounts.V2.DeleteAccountsRequest,
       Ethereum.Validator.Accounts.V2.DeleteAccountsResponse
-
-  rpc :ChangePassword, Ethereum.Validator.Accounts.V2.ChangePasswordRequest, Google.Protobuf.Empty
 
   rpc :VoluntaryExit,
       Ethereum.Validator.Accounts.V2.VoluntaryExitRequest,
@@ -627,17 +606,7 @@ defmodule Ethereum.Validator.Accounts.V2.Auth.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.validator.accounts.v2.Auth"
 
-  rpc :HasUsedWeb, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.HasUsedWebResponse
-
-  rpc :Login,
-      Ethereum.Validator.Accounts.V2.AuthRequest,
-      Ethereum.Validator.Accounts.V2.AuthResponse
-
-  rpc :Signup,
-      Ethereum.Validator.Accounts.V2.AuthRequest,
-      Ethereum.Validator.Accounts.V2.AuthResponse
-
-  rpc :Logout, Google.Protobuf.Empty, Google.Protobuf.Empty
+  rpc :Initialize, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.InitializeAuthResponse
 end
 
 defmodule Ethereum.Validator.Accounts.V2.Auth.Stub do
