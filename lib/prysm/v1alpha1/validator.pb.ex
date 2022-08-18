@@ -104,6 +104,7 @@ defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   oneof :block, 0
   field :phase0_block, 1, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
   field :altair_block, 2, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
+  field :bellatrix_block, 3, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockBellatrix, oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.DomainRequest do
@@ -565,6 +566,45 @@ defmodule Ethereum.Eth.V1alpha1.Validator do
   field :withdrawable_epoch, 8, type: :uint64
 end
 
+defmodule Ethereum.Eth.V1alpha1.ValidatorCapella do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          public_key: binary,
+          withdrawal_credentials: binary,
+          effective_balance: non_neg_integer,
+          slashed: boolean,
+          activation_eligibility_epoch: non_neg_integer,
+          activation_epoch: non_neg_integer,
+          exit_epoch: non_neg_integer,
+          withdrawable_epoch: non_neg_integer,
+          fully_withdrawn_epoch: non_neg_integer
+        }
+
+  defstruct [
+    :public_key,
+    :withdrawal_credentials,
+    :effective_balance,
+    :slashed,
+    :activation_eligibility_epoch,
+    :activation_epoch,
+    :exit_epoch,
+    :withdrawable_epoch,
+    :fully_withdrawn_epoch
+  ]
+
+  field :public_key, 1, type: :bytes
+  field :withdrawal_credentials, 2, type: :bytes
+  field :effective_balance, 3, type: :uint64
+  field :slashed, 4, type: :bool
+  field :activation_eligibility_epoch, 5, type: :uint64
+  field :activation_epoch, 6, type: :uint64
+  field :exit_epoch, 7, type: :uint64
+  field :withdrawable_epoch, 8, type: :uint64
+  field :fully_withdrawn_epoch, 9, type: :uint64
+end
+
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipation do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -715,6 +755,38 @@ defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
   field :verified_only, 1, type: :bool
 end
 
+defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          fee_recipient: binary,
+          validator_index: non_neg_integer
+        }
+
+  defstruct [:fee_recipient, :validator_index]
+
+  field :fee_recipient, 1, type: :bytes
+  field :validator_index, 2, type: :uint64
+end
+
+defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          recipients: [
+            Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer.t()
+          ]
+        }
+
+  defstruct [:recipients]
+
+  field :recipients, 1,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer
+end
+
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconNodeValidator"
@@ -758,6 +830,10 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :ProposeBeaconBlock,
       Ethereum.Eth.V1alpha1.GenericSignedBeaconBlock,
       Ethereum.Eth.V1alpha1.ProposeResponse
+
+  rpc :PrepareBeaconProposer,
+      Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest,
+      Google.Protobuf.Empty
 
   rpc :GetAttestationData,
       Ethereum.Eth.V1alpha1.AttestationDataRequest,
@@ -806,6 +882,14 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :StreamBlocksAltair,
       Ethereum.Eth.V1alpha1.StreamBlocksRequest,
       stream(Ethereum.Eth.V1alpha1.StreamBlocksResponse)
+
+  rpc :SubmitValidatorRegistration,
+      Ethereum.Eth.V1alpha1.SignedValidatorRegistrationV1,
+      Google.Protobuf.Empty
+
+  rpc :SubmitValidatorRegistrations,
+      Ethereum.Eth.V1alpha1.SignedValidatorRegistrationsV1,
+      Google.Protobuf.Empty
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Stub do

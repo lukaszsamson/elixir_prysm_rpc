@@ -1,13 +1,15 @@
 defmodule Ethereum.Validator.Accounts.V2.KeymanagerKind do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
-  @type t :: integer | :DERIVED | :IMPORTED | :REMOTE
+  @type t :: integer | :DERIVED | :IMPORTED | :REMOTE | :WEB3SIGNER
 
   field :DERIVED, 0
 
   field :IMPORTED, 1
 
   field :REMOTE, 2
+
+  field :WEB3SIGNER, 3
 end
 
 defmodule Ethereum.Validator.Accounts.V2.CreateWalletRequest do
@@ -282,7 +284,7 @@ defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
   field :wallet_exists, 1, type: :bool
 end
 
-defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresRequest do
+defmodule Ethereum.Validator.Accounts.V2.ImportAccountsRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -297,7 +299,7 @@ defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresRequest do
   field :keystores_password, 2, type: :string
 end
 
-defmodule Ethereum.Validator.Accounts.V2.ImportKeystoresResponse do
+defmodule Ethereum.Validator.Accounts.V2.ImportAccountsResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -484,9 +486,9 @@ defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
 
   rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse
 
-  rpc :ImportKeystores,
-      Ethereum.Validator.Accounts.V2.ImportKeystoresRequest,
-      Ethereum.Validator.Accounts.V2.ImportKeystoresResponse
+  rpc :ImportAccounts,
+      Ethereum.Validator.Accounts.V2.ImportAccountsRequest,
+      Ethereum.Validator.Accounts.V2.ImportAccountsResponse
 
   rpc :ValidateKeystores,
       Ethereum.Validator.Accounts.V2.ValidateKeystoresRequest,

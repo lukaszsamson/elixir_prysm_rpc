@@ -146,6 +146,25 @@ defmodule Ethereum.Eth.V1alpha1.HostData do
   field :enr, 3, type: :string
 end
 
+defmodule Ethereum.Eth.V1alpha1.ETH1ConnectionStatus do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          current_address: String.t(),
+          current_connection_error: String.t(),
+          addresses: [String.t()],
+          connection_errors: [String.t()]
+        }
+
+  defstruct [:current_address, :current_connection_error, :addresses, :connection_errors]
+
+  field :current_address, 1, type: :string
+  field :current_connection_error, 2, type: :string
+  field :addresses, 3, repeated: true, type: :string
+  field :connection_errors, 4, repeated: true, type: :string
+end
+
 defmodule Ethereum.Eth.V1alpha1.Node.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.eth.v1alpha1.Node"
@@ -163,6 +182,8 @@ defmodule Ethereum.Eth.V1alpha1.Node.Service do
   rpc :GetPeer, Ethereum.Eth.V1alpha1.PeerRequest, Ethereum.Eth.V1alpha1.Peer
 
   rpc :ListPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Peers
+
+  rpc :GetETH1ConnectionStatus, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ETH1ConnectionStatus
 end
 
 defmodule Ethereum.Eth.V1alpha1.Node.Stub do

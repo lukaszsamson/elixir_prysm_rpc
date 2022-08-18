@@ -169,6 +169,11 @@ defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
   field :canonical, 2, type: :bool
   field :phase0_block, 3, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
   field :altair_block, 4, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
+  field :bellatrix_block, 5, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockBellatrix, oneof: 0
+
+  field :blinded_bellatrix_block, 6,
+    type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockBellatrix,
+    oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.ChainHead do
@@ -187,7 +192,8 @@ defmodule Ethereum.Eth.V1alpha1.ChainHead do
           justified_block_root: binary,
           previous_justified_slot: non_neg_integer,
           previous_justified_epoch: non_neg_integer,
-          previous_justified_block_root: binary
+          previous_justified_block_root: binary,
+          optimistic_status: boolean
         }
 
   defstruct [
@@ -202,7 +208,8 @@ defmodule Ethereum.Eth.V1alpha1.ChainHead do
     :justified_block_root,
     :previous_justified_slot,
     :previous_justified_epoch,
-    :previous_justified_block_root
+    :previous_justified_block_root,
+    :optimistic_status
   ]
 
   field :head_slot, 1, type: :uint64
@@ -217,6 +224,7 @@ defmodule Ethereum.Eth.V1alpha1.ChainHead do
   field :previous_justified_slot, 10, type: :uint64
   field :previous_justified_epoch, 11, type: :uint64
   field :previous_justified_block_root, 12, type: :bytes
+  field :optimistic_status, 13, type: :bool
 end
 
 defmodule Ethereum.Eth.V1alpha1.ListCommitteesRequest do
@@ -858,23 +866,6 @@ defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond do
     type: Ethereum.Eth.V1alpha1.IndividualVotesRespond.IndividualVote
 end
 
-defmodule Ethereum.Eth.V1alpha1.WeakSubjectivityCheckpoint do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          block_root: binary,
-          state_root: binary,
-          epoch: non_neg_integer
-        }
-
-  defstruct [:block_root, :state_root, :epoch]
-
-  field :block_root, 1, type: :bytes
-  field :state_root, 2, type: :bytes
-  field :epoch, 3, type: :uint64
-end
-
 defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconChain"
@@ -912,10 +903,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   rpc :StreamChainHead, Google.Protobuf.Empty, stream(Ethereum.Eth.V1alpha1.ChainHead)
 
   rpc :GetChainHead, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ChainHead
-
-  rpc :GetWeakSubjectivityCheckpoint,
-      Google.Protobuf.Empty,
-      Ethereum.Eth.V1alpha1.WeakSubjectivityCheckpoint
 
   rpc :ListBeaconCommittees,
       Ethereum.Eth.V1alpha1.ListCommitteesRequest,
