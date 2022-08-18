@@ -1,795 +1,446 @@
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatus do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :UNKNOWN_STATUS
-          | :DEPOSITED
-          | :PENDING
-          | :ACTIVE
-          | :EXITING
-          | :SLASHING
-          | :EXITED
-          | :INVALID
-          | :PARTIALLY_DEPOSITED
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :UNKNOWN_STATUS, 0
-
   field :DEPOSITED, 1
-
   field :PENDING, 2
-
   field :ACTIVE, 3
-
   field :EXITING, 4
-
   field :SLASHING, 5
-
   field :EXITED, 6
-
   field :INVALID, 7
-
   field :PARTIALLY_DEPOSITED, 8
 end
-
 defmodule Ethereum.Eth.V1alpha1.SyncMessageBlockRootResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          root: binary
-        }
-
-  defstruct [:root]
-
-  field :root, 1, type: :bytes
+  field :root, 1, type: :bytes, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          slot: non_neg_integer
-        }
-
-  defstruct [:public_key, :slot]
-
-  field :public_key, 1, type: :bytes
-  field :slot, 2, type: :uint64
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
+  field :slot, 2, type: :uint64, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.SyncCommitteeContributionRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slot: non_neg_integer,
-          public_key: binary,
-          subnet_id: non_neg_integer
-        }
-
-  defstruct [:slot, :public_key, :subnet_id]
-
-  field :slot, 1, type: :uint64
-  field :public_key, 2, type: :bytes
-  field :subnet_id, 3, type: :uint64
+  field :slot, 1, type: :uint64, deprecated: false
+  field :public_key, 2, type: :bytes, json_name: "publicKey", deprecated: false
+  field :subnet_id, 3, type: :uint64, json_name: "subnetId"
 end
-
 defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          indices: [non_neg_integer]
-        }
-
-  defstruct [:indices]
-
-  field :indices, 1, repeated: true, type: :uint64
+  field :indices, 1, repeated: true, type: :uint64, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          block: {atom, any}
-        }
-
-  defstruct [:block]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   oneof :block, 0
-  field :phase0_block, 1, type: Ethereum.Eth.V1alpha1.SignedBeaconBlock, oneof: 0
-  field :altair_block, 2, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair, oneof: 0
-  field :bellatrix_block, 3, type: Ethereum.Eth.V1alpha1.SignedBeaconBlockBellatrix, oneof: 0
-end
 
+  field :phase0_block, 1,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlock,
+    json_name: "phase0Block",
+    oneof: 0
+
+  field :altair_block, 2,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockAltair,
+    json_name: "altairBlock",
+    oneof: 0
+
+  field :bellatrix_block, 3,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockBellatrix,
+    json_name: "bellatrixBlock",
+    oneof: 0
+end
 defmodule Ethereum.Eth.V1alpha1.DomainRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          epoch: non_neg_integer,
-          domain: binary
-        }
-
-  defstruct [:epoch, :domain]
-
-  field :epoch, 1, type: :uint64
+  field :epoch, 1, type: :uint64, deprecated: false
   field :domain, 2, type: :bytes
 end
-
 defmodule Ethereum.Eth.V1alpha1.DomainResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          signature_domain: binary
-        }
-
-  defstruct [:signature_domain]
-
-  field :signature_domain, 1, type: :bytes
+  field :signature_domain, 1, type: :bytes, json_name: "signatureDomain"
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary]
-        }
-
-  defstruct [:public_keys]
-
-  field :public_keys, 1, repeated: true, type: :bytes
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationResponse.Status do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          status: Ethereum.Eth.V1alpha1.ValidatorStatusResponse.t() | nil,
-          index: non_neg_integer
-        }
-
-  defstruct [:public_key, :status, :index]
-
-  field :public_key, 1, type: :bytes
+  field :public_key, 1, type: :bytes, json_name: "publicKey"
   field :status, 2, type: Ethereum.Eth.V1alpha1.ValidatorStatusResponse
-  field :index, 3, type: :uint64
+  field :index, 3, type: :uint64, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          statuses: [Ethereum.Eth.V1alpha1.ValidatorActivationResponse.Status.t()]
-        }
-
-  defstruct [:statuses]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :statuses, 1,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.ValidatorActivationResponse.Status
 end
-
 defmodule Ethereum.Eth.V1alpha1.ChainStartResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          started: boolean,
-          genesis_time: non_neg_integer,
-          genesis_validators_root: binary
-        }
-
-  defstruct [:started, :genesis_time, :genesis_validators_root]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :started, 1, type: :bool
-  field :genesis_time, 2, type: :uint64
-  field :genesis_validators_root, 3, type: :bytes
-end
+  field :genesis_time, 2, type: :uint64, json_name: "genesisTime"
 
+  field :genesis_validators_root, 3,
+    type: :bytes,
+    json_name: "genesisValidatorsRoot",
+    deprecated: false
+end
 defmodule Ethereum.Eth.V1alpha1.SyncedResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          synced: boolean,
-          genesis_time: non_neg_integer
-        }
-
-  defstruct [:synced, :genesis_time]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :synced, 1, type: :bool
-  field :genesis_time, 2, type: :uint64
+  field :genesis_time, 2, type: :uint64, json_name: "genesisTime"
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorIndexRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary
-        }
-
-  defstruct [:public_key]
-
-  field :public_key, 1, type: :bytes
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorIndexResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          index: non_neg_integer
-        }
-
-  defstruct [:index]
-
-  field :index, 1, type: :uint64
+  field :index, 1, type: :uint64, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatusRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary
-        }
-
-  defstruct [:public_key]
-
-  field :public_key, 1, type: :bytes
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatusResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          status: Ethereum.Eth.V1alpha1.ValidatorStatus.t(),
-          eth1_deposit_block_number: non_neg_integer,
-          deposit_inclusion_slot: non_neg_integer,
-          activation_epoch: non_neg_integer,
-          position_in_activation_queue: non_neg_integer
-        }
-
-  defstruct [
-    :status,
-    :eth1_deposit_block_number,
-    :deposit_inclusion_slot,
-    :activation_epoch,
-    :position_in_activation_queue
-  ]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :status, 1, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
-  field :eth1_deposit_block_number, 2, type: :uint64
-  field :deposit_inclusion_slot, 3, type: :uint64
-  field :activation_epoch, 4, type: :uint64
-  field :position_in_activation_queue, 5, type: :uint64
-end
+  field :eth1_deposit_block_number, 2, type: :uint64, json_name: "eth1DepositBlockNumber"
 
+  field :deposit_inclusion_slot, 3,
+    type: :uint64,
+    json_name: "depositInclusionSlot",
+    deprecated: false
+
+  field :activation_epoch, 4, type: :uint64, json_name: "activationEpoch", deprecated: false
+  field :position_in_activation_queue, 5, type: :uint64, json_name: "positionInActivationQueue"
+end
 defmodule Ethereum.Eth.V1alpha1.MultipleValidatorStatusRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary],
-          indices: [integer]
-        }
-
-  defstruct [:public_keys, :indices]
-
-  field :public_keys, 1, repeated: true, type: :bytes
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
   field :indices, 2, repeated: true, type: :int64
 end
-
 defmodule Ethereum.Eth.V1alpha1.MultipleValidatorStatusResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary],
-          statuses: [Ethereum.Eth.V1alpha1.ValidatorStatusResponse.t()],
-          indices: [non_neg_integer]
-        }
-
-  defstruct [:public_keys, :statuses, :indices]
-
-  field :public_keys, 1, repeated: true, type: :bytes
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
   field :statuses, 2, repeated: true, type: Ethereum.Eth.V1alpha1.ValidatorStatusResponse
-  field :indices, 3, repeated: true, type: :uint64
+  field :indices, 3, repeated: true, type: :uint64, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.DutiesRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          epoch: non_neg_integer,
-          public_keys: [binary]
-        }
-
-  defstruct [:epoch, :public_keys]
-
-  field :epoch, 1, type: :uint64
-  field :public_keys, 2, repeated: true, type: :bytes
+  field :epoch, 1, type: :uint64, deprecated: false
+  field :public_keys, 2, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.DutiesResponse.Duty do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          committee: [non_neg_integer],
-          committee_index: non_neg_integer,
-          attester_slot: non_neg_integer,
-          proposer_slots: [non_neg_integer],
-          public_key: binary,
-          status: Ethereum.Eth.V1alpha1.ValidatorStatus.t(),
-          validator_index: non_neg_integer,
-          is_sync_committee: boolean
-        }
+  field :committee, 1, repeated: true, type: :uint64, deprecated: false
+  field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
+  field :attester_slot, 3, type: :uint64, json_name: "attesterSlot", deprecated: false
 
-  defstruct [
-    :committee,
-    :committee_index,
-    :attester_slot,
-    :proposer_slots,
-    :public_key,
-    :status,
-    :validator_index,
-    :is_sync_committee
-  ]
+  field :proposer_slots, 4,
+    repeated: true,
+    type: :uint64,
+    json_name: "proposerSlots",
+    deprecated: false
 
-  field :committee, 1, repeated: true, type: :uint64
-  field :committee_index, 2, type: :uint64
-  field :attester_slot, 3, type: :uint64
-  field :proposer_slots, 4, repeated: true, type: :uint64
-  field :public_key, 5, type: :bytes
+  field :public_key, 5, type: :bytes, json_name: "publicKey", deprecated: false
   field :status, 6, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
-  field :validator_index, 7, type: :uint64
-  field :is_sync_committee, 8, type: :bool
+  field :validator_index, 7, type: :uint64, json_name: "validatorIndex", deprecated: false
+  field :is_sync_committee, 8, type: :bool, json_name: "isSyncCommittee"
 end
-
 defmodule Ethereum.Eth.V1alpha1.DutiesResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          duties: [Ethereum.Eth.V1alpha1.DutiesResponse.Duty.t()],
-          current_epoch_duties: [Ethereum.Eth.V1alpha1.DutiesResponse.Duty.t()],
-          next_epoch_duties: [Ethereum.Eth.V1alpha1.DutiesResponse.Duty.t()]
-        }
-
-  defstruct [:duties, :current_epoch_duties, :next_epoch_duties]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :duties, 1,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty,
     deprecated: true
 
-  field :current_epoch_duties, 2, repeated: true, type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty
-  field :next_epoch_duties, 3, repeated: true, type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty
-end
+  field :current_epoch_duties, 2,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty,
+    json_name: "currentEpochDuties"
 
+  field :next_epoch_duties, 3,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty,
+    json_name: "nextEpochDuties"
+end
 defmodule Ethereum.Eth.V1alpha1.BlockRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slot: non_neg_integer,
-          randao_reveal: binary,
-          graffiti: binary
-        }
-
-  defstruct [:slot, :randao_reveal, :graffiti]
-
-  field :slot, 1, type: :uint64
-  field :randao_reveal, 2, type: :bytes
-  field :graffiti, 3, type: :bytes
+  field :slot, 1, type: :uint64, deprecated: false
+  field :randao_reveal, 2, type: :bytes, json_name: "randaoReveal", deprecated: false
+  field :graffiti, 3, type: :bytes, deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ProposeResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          block_root: binary
-        }
-
-  defstruct [:block_root]
-
-  field :block_root, 1, type: :bytes
+  field :block_root, 1, type: :bytes, json_name: "blockRoot", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.ProposeExitResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          exit_root: binary
-        }
-
-  defstruct [:exit_root]
-
-  field :exit_root, 1, type: :bytes
+  field :exit_root, 1, type: :bytes, json_name: "exitRoot", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.AttestationDataRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slot: non_neg_integer,
-          committee_index: non_neg_integer
-        }
-
-  defstruct [:slot, :committee_index]
-
-  field :slot, 1, type: :uint64
-  field :committee_index, 2, type: :uint64
+  field :slot, 1, type: :uint64, deprecated: false
+  field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.AttestResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          attestation_data_root: binary
-        }
-
-  defstruct [:attestation_data_root]
-
-  field :attestation_data_root, 1, type: :bytes
+  field :attestation_data_root, 1,
+    type: :bytes,
+    json_name: "attestationDataRoot",
+    deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.AggregateSelectionRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slot: non_neg_integer,
-          committee_index: non_neg_integer,
-          public_key: binary,
-          slot_signature: binary
-        }
-
-  defstruct [:slot, :committee_index, :public_key, :slot_signature]
-
-  field :slot, 1, type: :uint64
-  field :committee_index, 2, type: :uint64
-  field :public_key, 3, type: :bytes
-  field :slot_signature, 4, type: :bytes
+  field :slot, 1, type: :uint64, deprecated: false
+  field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
+  field :public_key, 3, type: :bytes, json_name: "publicKey", deprecated: false
+  field :slot_signature, 4, type: :bytes, json_name: "slotSignature", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.AggregateSelectionResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          aggregate_and_proof: Ethereum.Eth.V1alpha1.AggregateAttestationAndProof.t() | nil
-        }
-
-  defstruct [:aggregate_and_proof]
-
-  field :aggregate_and_proof, 1, type: Ethereum.Eth.V1alpha1.AggregateAttestationAndProof
+  field :aggregate_and_proof, 1,
+    type: Ethereum.Eth.V1alpha1.AggregateAttestationAndProof,
+    json_name: "aggregateAndProof"
 end
-
 defmodule Ethereum.Eth.V1alpha1.SignedAggregateSubmitRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          signed_aggregate_and_proof:
-            Ethereum.Eth.V1alpha1.SignedAggregateAttestationAndProof.t() | nil
-        }
-
-  defstruct [:signed_aggregate_and_proof]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :signed_aggregate_and_proof, 1,
-    type: Ethereum.Eth.V1alpha1.SignedAggregateAttestationAndProof
+    type: Ethereum.Eth.V1alpha1.SignedAggregateAttestationAndProof,
+    json_name: "signedAggregateAndProof"
 end
-
 defmodule Ethereum.Eth.V1alpha1.SignedAggregateSubmitResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          attestation_data_root: binary
-        }
-
-  defstruct [:attestation_data_root]
-
-  field :attestation_data_root, 1, type: :bytes
+  field :attestation_data_root, 1,
+    type: :bytes,
+    json_name: "attestationDataRoot",
+    deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.CommitteeSubnetsSubscribeRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slots: [non_neg_integer],
-          committee_ids: [non_neg_integer],
-          is_aggregator: [boolean]
-        }
+  field :slots, 1, repeated: true, type: :uint64, deprecated: false
 
-  defstruct [:slots, :committee_ids, :is_aggregator]
+  field :committee_ids, 2,
+    repeated: true,
+    type: :uint64,
+    json_name: "committeeIds",
+    deprecated: false
 
-  field :slots, 1, repeated: true, type: :uint64
-  field :committee_ids, 2, repeated: true, type: :uint64
-  field :is_aggregator, 3, repeated: true, type: :bool
+  field :is_aggregator, 3, repeated: true, type: :bool, json_name: "isAggregator"
 end
-
 defmodule Ethereum.Eth.V1alpha1.Validator do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          withdrawal_credentials: binary,
-          effective_balance: non_neg_integer,
-          slashed: boolean,
-          activation_eligibility_epoch: non_neg_integer,
-          activation_epoch: non_neg_integer,
-          exit_epoch: non_neg_integer,
-          withdrawable_epoch: non_neg_integer
-        }
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 
-  defstruct [
-    :public_key,
-    :withdrawal_credentials,
-    :effective_balance,
-    :slashed,
-    :activation_eligibility_epoch,
-    :activation_epoch,
-    :exit_epoch,
-    :withdrawable_epoch
-  ]
+  field :withdrawal_credentials, 2,
+    type: :bytes,
+    json_name: "withdrawalCredentials",
+    deprecated: false
 
-  field :public_key, 1, type: :bytes
-  field :withdrawal_credentials, 2, type: :bytes
-  field :effective_balance, 3, type: :uint64
+  field :effective_balance, 3, type: :uint64, json_name: "effectiveBalance"
   field :slashed, 4, type: :bool
-  field :activation_eligibility_epoch, 5, type: :uint64
-  field :activation_epoch, 6, type: :uint64
-  field :exit_epoch, 7, type: :uint64
-  field :withdrawable_epoch, 8, type: :uint64
-end
 
+  field :activation_eligibility_epoch, 5,
+    type: :uint64,
+    json_name: "activationEligibilityEpoch",
+    deprecated: false
+
+  field :activation_epoch, 6, type: :uint64, json_name: "activationEpoch", deprecated: false
+  field :exit_epoch, 7, type: :uint64, json_name: "exitEpoch", deprecated: false
+  field :withdrawable_epoch, 8, type: :uint64, json_name: "withdrawableEpoch", deprecated: false
+end
 defmodule Ethereum.Eth.V1alpha1.ValidatorCapella do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          withdrawal_credentials: binary,
-          effective_balance: non_neg_integer,
-          slashed: boolean,
-          activation_eligibility_epoch: non_neg_integer,
-          activation_epoch: non_neg_integer,
-          exit_epoch: non_neg_integer,
-          withdrawable_epoch: non_neg_integer,
-          fully_withdrawn_epoch: non_neg_integer
-        }
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 
-  defstruct [
-    :public_key,
-    :withdrawal_credentials,
-    :effective_balance,
-    :slashed,
-    :activation_eligibility_epoch,
-    :activation_epoch,
-    :exit_epoch,
-    :withdrawable_epoch,
-    :fully_withdrawn_epoch
-  ]
+  field :withdrawal_credentials, 2,
+    type: :bytes,
+    json_name: "withdrawalCredentials",
+    deprecated: false
 
-  field :public_key, 1, type: :bytes
-  field :withdrawal_credentials, 2, type: :bytes
-  field :effective_balance, 3, type: :uint64
+  field :effective_balance, 3, type: :uint64, json_name: "effectiveBalance"
   field :slashed, 4, type: :bool
-  field :activation_eligibility_epoch, 5, type: :uint64
-  field :activation_epoch, 6, type: :uint64
-  field :exit_epoch, 7, type: :uint64
-  field :withdrawable_epoch, 8, type: :uint64
-  field :fully_withdrawn_epoch, 9, type: :uint64
-end
 
+  field :activation_eligibility_epoch, 5,
+    type: :uint64,
+    json_name: "activationEligibilityEpoch",
+    deprecated: false
+
+  field :activation_epoch, 6, type: :uint64, json_name: "activationEpoch", deprecated: false
+  field :exit_epoch, 7, type: :uint64, json_name: "exitEpoch", deprecated: false
+  field :withdrawable_epoch, 8, type: :uint64, json_name: "withdrawableEpoch", deprecated: false
+
+  field :fully_withdrawn_epoch, 9,
+    type: :uint64,
+    json_name: "fullyWithdrawnEpoch",
+    deprecated: false
+end
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipation do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          global_participation_rate: float | :infinity | :negative_infinity | :nan,
-          voted_ether: non_neg_integer,
-          eligible_ether: non_neg_integer,
-          current_epoch_active_gwei: non_neg_integer,
-          current_epoch_attesting_gwei: non_neg_integer,
-          current_epoch_target_attesting_gwei: non_neg_integer,
-          previous_epoch_active_gwei: non_neg_integer,
-          previous_epoch_attesting_gwei: non_neg_integer,
-          previous_epoch_target_attesting_gwei: non_neg_integer,
-          previous_epoch_head_attesting_gwei: non_neg_integer
-        }
+  field :global_participation_rate, 1,
+    type: :float,
+    json_name: "globalParticipationRate",
+    deprecated: true
 
-  defstruct [
-    :global_participation_rate,
-    :voted_ether,
-    :eligible_ether,
-    :current_epoch_active_gwei,
-    :current_epoch_attesting_gwei,
-    :current_epoch_target_attesting_gwei,
-    :previous_epoch_active_gwei,
-    :previous_epoch_attesting_gwei,
-    :previous_epoch_target_attesting_gwei,
-    :previous_epoch_head_attesting_gwei
-  ]
+  field :voted_ether, 2, type: :uint64, json_name: "votedEther", deprecated: true
+  field :eligible_ether, 3, type: :uint64, json_name: "eligibleEther", deprecated: true
+  field :current_epoch_active_gwei, 4, type: :uint64, json_name: "currentEpochActiveGwei"
+  field :current_epoch_attesting_gwei, 5, type: :uint64, json_name: "currentEpochAttestingGwei"
 
-  field :global_participation_rate, 1, type: :float, deprecated: true
-  field :voted_ether, 2, type: :uint64, deprecated: true
-  field :eligible_ether, 3, type: :uint64, deprecated: true
-  field :current_epoch_active_gwei, 4, type: :uint64
-  field :current_epoch_attesting_gwei, 5, type: :uint64
-  field :current_epoch_target_attesting_gwei, 6, type: :uint64
-  field :previous_epoch_active_gwei, 7, type: :uint64
-  field :previous_epoch_attesting_gwei, 8, type: :uint64
-  field :previous_epoch_target_attesting_gwei, 9, type: :uint64
-  field :previous_epoch_head_attesting_gwei, 10, type: :uint64
+  field :current_epoch_target_attesting_gwei, 6,
+    type: :uint64,
+    json_name: "currentEpochTargetAttestingGwei"
+
+  field :previous_epoch_active_gwei, 7, type: :uint64, json_name: "previousEpochActiveGwei"
+  field :previous_epoch_attesting_gwei, 8, type: :uint64, json_name: "previousEpochAttestingGwei"
+
+  field :previous_epoch_target_attesting_gwei, 9,
+    type: :uint64,
+    json_name: "previousEpochTargetAttestingGwei"
+
+  field :previous_epoch_head_attesting_gwei, 10,
+    type: :uint64,
+    json_name: "previousEpochHeadAttestingGwei"
 end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorInfo do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          index: non_neg_integer,
-          epoch: non_neg_integer,
-          status: Ethereum.Eth.V1alpha1.ValidatorStatus.t(),
-          transition_timestamp: non_neg_integer,
-          balance: non_neg_integer,
-          effective_balance: non_neg_integer
-        }
-
-  defstruct [
-    :public_key,
-    :index,
-    :epoch,
-    :status,
-    :transition_timestamp,
-    :balance,
-    :effective_balance
-  ]
-
-  field :public_key, 1, type: :bytes
-  field :index, 2, type: :uint64
-  field :epoch, 3, type: :uint64
+  field :public_key, 1, type: :bytes, json_name: "publicKey"
+  field :index, 2, type: :uint64, deprecated: false
+  field :epoch, 3, type: :uint64, deprecated: false
   field :status, 4, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
-  field :transition_timestamp, 5, type: :uint64
+  field :transition_timestamp, 5, type: :uint64, json_name: "transitionTimestamp"
   field :balance, 6, type: :uint64
-  field :effective_balance, 7, type: :uint64
+  field :effective_balance, 7, type: :uint64, json_name: "effectiveBalance"
 end
-
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerRequest.ValidatorRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          epoch: non_neg_integer,
-          signed_root: binary
-        }
-
-  defstruct [:public_key, :epoch, :signed_root]
-
-  field :public_key, 1, type: :bytes
-  field :epoch, 3, type: :uint64
-  field :signed_root, 2, type: :bytes
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
+  field :epoch, 3, type: :uint64, deprecated: false
+  field :signed_root, 2, type: :bytes, json_name: "signedRoot", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          validator_requests: [Ethereum.Eth.V1alpha1.DoppelGangerRequest.ValidatorRequest.t()]
-        }
-
-  defstruct [:validator_requests]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :validator_requests, 1,
     repeated: true,
-    type: Ethereum.Eth.V1alpha1.DoppelGangerRequest.ValidatorRequest
+    type: Ethereum.Eth.V1alpha1.DoppelGangerRequest.ValidatorRequest,
+    json_name: "validatorRequests"
 end
-
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_key: binary,
-          duplicate_exists: boolean
-        }
-
-  defstruct [:public_key, :duplicate_exists]
-
-  field :public_key, 1, type: :bytes
-  field :duplicate_exists, 2, type: :bool
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
+  field :duplicate_exists, 2, type: :bool, json_name: "duplicateExists"
 end
-
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          responses: [Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse.t()]
-        }
-
-  defstruct [:responses]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :responses, 1,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse
 end
-
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          verified_only: boolean
-        }
-
-  defstruct [:verified_only]
-
-  field :verified_only, 1, type: :bool
+  field :verified_only, 1, type: :bool, json_name: "verifiedOnly"
 end
-
 defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          fee_recipient: binary,
-          validator_index: non_neg_integer
-        }
-
-  defstruct [:fee_recipient, :validator_index]
-
-  field :fee_recipient, 1, type: :bytes
-  field :validator_index, 2, type: :uint64
+  field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
+  field :validator_index, 2, type: :uint64, json_name: "validatorIndex", deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          recipients: [
-            Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer.t()
-          ]
-        }
-
-  defstruct [:recipients]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :recipients, 1,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer
 end
-
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconNodeValidator"
+  use GRPC.Service,
+    name: "ethereum.eth.v1alpha1.BeaconNodeValidator",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :GetDuties, Ethereum.Eth.V1alpha1.DutiesRequest, Ethereum.Eth.V1alpha1.DutiesResponse
 

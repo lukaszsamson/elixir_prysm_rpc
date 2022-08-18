@@ -1,173 +1,98 @@
 defmodule Ethereum.Eth.V1alpha1.PeerDirection do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-  @type t :: integer | :UNKNOWN | :INBOUND | :OUTBOUND
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :UNKNOWN, 0
-
   field :INBOUND, 1
-
   field :OUTBOUND, 2
 end
-
 defmodule Ethereum.Eth.V1alpha1.ConnectionState do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-  @type t :: integer | :DISCONNECTED | :DISCONNECTING | :CONNECTED | :CONNECTING
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :DISCONNECTED, 0
-
   field :DISCONNECTING, 1
-
   field :CONNECTED, 2
-
   field :CONNECTING, 3
 end
-
 defmodule Ethereum.Eth.V1alpha1.SyncStatus do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          syncing: boolean
-        }
-
-  defstruct [:syncing]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :syncing, 1, type: :bool
 end
-
 defmodule Ethereum.Eth.V1alpha1.Genesis do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          genesis_time: Google.Protobuf.Timestamp.t() | nil,
-          deposit_contract_address: binary,
-          genesis_validators_root: binary
-        }
+  field :genesis_time, 1, type: Google.Protobuf.Timestamp, json_name: "genesisTime"
+  field :deposit_contract_address, 2, type: :bytes, json_name: "depositContractAddress"
 
-  defstruct [:genesis_time, :deposit_contract_address, :genesis_validators_root]
-
-  field :genesis_time, 1, type: Google.Protobuf.Timestamp
-  field :deposit_contract_address, 2, type: :bytes
-  field :genesis_validators_root, 3, type: :bytes
+  field :genesis_validators_root, 3,
+    type: :bytes,
+    json_name: "genesisValidatorsRoot",
+    deprecated: false
 end
-
 defmodule Ethereum.Eth.V1alpha1.Version do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          version: String.t(),
-          metadata: String.t()
-        }
-
-  defstruct [:version, :metadata]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :version, 1, type: :string
   field :metadata, 2, type: :string
 end
-
 defmodule Ethereum.Eth.V1alpha1.ImplementedServices do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          services: [String.t()]
-        }
-
-  defstruct [:services]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :services, 1, repeated: true, type: :string
 end
-
 defmodule Ethereum.Eth.V1alpha1.PeerRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          peer_id: String.t()
-        }
-
-  defstruct [:peer_id]
-
-  field :peer_id, 1, type: :string
+  field :peer_id, 1, type: :string, json_name: "peerId"
 end
-
 defmodule Ethereum.Eth.V1alpha1.Peers do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          peers: [Ethereum.Eth.V1alpha1.Peer.t()]
-        }
-
-  defstruct [:peers]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :peers, 1, repeated: true, type: Ethereum.Eth.V1alpha1.Peer
 end
-
 defmodule Ethereum.Eth.V1alpha1.Peer do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          address: String.t(),
-          direction: Ethereum.Eth.V1alpha1.PeerDirection.t(),
-          connection_state: Ethereum.Eth.V1alpha1.ConnectionState.t(),
-          peer_id: String.t(),
-          enr: String.t()
-        }
-
-  defstruct [:address, :direction, :connection_state, :peer_id, :enr]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :address, 1, type: :string
   field :direction, 2, type: Ethereum.Eth.V1alpha1.PeerDirection, enum: true
-  field :connection_state, 3, type: Ethereum.Eth.V1alpha1.ConnectionState, enum: true
-  field :peer_id, 4, type: :string
+
+  field :connection_state, 3,
+    type: Ethereum.Eth.V1alpha1.ConnectionState,
+    json_name: "connectionState",
+    enum: true
+
+  field :peer_id, 4, type: :string, json_name: "peerId"
   field :enr, 5, type: :string
 end
-
 defmodule Ethereum.Eth.V1alpha1.HostData do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          addresses: [String.t()],
-          peer_id: String.t(),
-          enr: String.t()
-        }
-
-  defstruct [:addresses, :peer_id, :enr]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :addresses, 1, repeated: true, type: :string
-  field :peer_id, 2, type: :string
+  field :peer_id, 2, type: :string, json_name: "peerId"
   field :enr, 3, type: :string
 end
-
 defmodule Ethereum.Eth.V1alpha1.ETH1ConnectionStatus do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          current_address: String.t(),
-          current_connection_error: String.t(),
-          addresses: [String.t()],
-          connection_errors: [String.t()]
-        }
-
-  defstruct [:current_address, :current_connection_error, :addresses, :connection_errors]
-
-  field :current_address, 1, type: :string
-  field :current_connection_error, 2, type: :string
+  field :current_address, 1, type: :string, json_name: "currentAddress"
+  field :current_connection_error, 2, type: :string, json_name: "currentConnectionError"
   field :addresses, 3, repeated: true, type: :string
-  field :connection_errors, 4, repeated: true, type: :string
+  field :connection_errors, 4, repeated: true, type: :string, json_name: "connectionErrors"
 end
-
 defmodule Ethereum.Eth.V1alpha1.Node.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Node"
+  use GRPC.Service, name: "ethereum.eth.v1alpha1.Node", protoc_gen_elixir_version: "0.10.0"
 
   rpc :GetSyncStatus, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.SyncStatus
 

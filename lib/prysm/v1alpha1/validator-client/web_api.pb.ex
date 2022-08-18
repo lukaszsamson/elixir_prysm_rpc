@@ -1,484 +1,228 @@
 defmodule Ethereum.Validator.Accounts.V2.KeymanagerKind do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-  @type t :: integer | :DERIVED | :IMPORTED | :REMOTE | :WEB3SIGNER
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :DERIVED, 0
-
   field :IMPORTED, 1
-
   field :REMOTE, 2
-
   field :WEB3SIGNER, 3
 end
-
 defmodule Ethereum.Validator.Accounts.V2.CreateWalletRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          keymanager: Ethereum.Validator.Accounts.V2.KeymanagerKind.t(),
-          wallet_password: String.t(),
-          mnemonic: String.t(),
-          num_accounts: non_neg_integer,
-          remote_addr: String.t(),
-          remote_crt_path: String.t(),
-          remote_key_path: String.t(),
-          remote_ca_crt_path: String.t()
-        }
-
-  defstruct [
-    :keymanager,
-    :wallet_password,
-    :mnemonic,
-    :num_accounts,
-    :remote_addr,
-    :remote_crt_path,
-    :remote_key_path,
-    :remote_ca_crt_path
-  ]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :keymanager, 1, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
-  field :wallet_password, 2, type: :string
+  field :wallet_password, 2, type: :string, json_name: "walletPassword"
   field :mnemonic, 3, type: :string
-  field :num_accounts, 4, type: :uint64
-  field :remote_addr, 5, type: :string
-  field :remote_crt_path, 6, type: :string
-  field :remote_key_path, 7, type: :string
-  field :remote_ca_crt_path, 8, type: :string
+  field :num_accounts, 4, type: :uint64, json_name: "numAccounts"
+  field :remote_addr, 5, type: :string, json_name: "remoteAddr"
+  field :remote_crt_path, 6, type: :string, json_name: "remoteCrtPath"
+  field :remote_key_path, 7, type: :string, json_name: "remoteKeyPath"
+  field :remote_ca_crt_path, 8, type: :string, json_name: "remoteCaCrtPath"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.CreateWalletResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          wallet: Ethereum.Validator.Accounts.V2.WalletResponse.t() | nil
-        }
-
-  defstruct [:wallet]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :wallet, 1, type: Ethereum.Validator.Accounts.V2.WalletResponse
 end
-
 defmodule Ethereum.Validator.Accounts.V2.EditWalletConfigRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          remote_addr: String.t(),
-          remote_crt_path: String.t(),
-          remote_key_path: String.t(),
-          remote_ca_crt_path: String.t()
-        }
-
-  defstruct [:remote_addr, :remote_crt_path, :remote_key_path, :remote_ca_crt_path]
-
-  field :remote_addr, 1, type: :string
-  field :remote_crt_path, 2, type: :string
-  field :remote_key_path, 3, type: :string
-  field :remote_ca_crt_path, 4, type: :string
+  field :remote_addr, 1, type: :string, json_name: "remoteAddr"
+  field :remote_crt_path, 2, type: :string, json_name: "remoteCrtPath"
+  field :remote_key_path, 3, type: :string, json_name: "remoteKeyPath"
+  field :remote_ca_crt_path, 4, type: :string, json_name: "remoteCaCrtPath"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.GenerateMnemonicResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          mnemonic: String.t()
-        }
-
-  defstruct [:mnemonic]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :mnemonic, 1, type: :string
 end
-
 defmodule Ethereum.Validator.Accounts.V2.WalletResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          wallet_path: String.t(),
-          keymanager_kind: Ethereum.Validator.Accounts.V2.KeymanagerKind.t()
-        }
+  field :wallet_path, 1, type: :string, json_name: "walletPath"
 
-  defstruct [:wallet_path, :keymanager_kind]
-
-  field :wallet_path, 1, type: :string
-  field :keymanager_kind, 2, type: Ethereum.Validator.Accounts.V2.KeymanagerKind, enum: true
+  field :keymanager_kind, 2,
+    type: Ethereum.Validator.Accounts.V2.KeymanagerKind,
+    json_name: "keymanagerKind",
+    enum: true
 end
-
 defmodule Ethereum.Validator.Accounts.V2.RecoverWalletRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          mnemonic: String.t(),
-          num_accounts: non_neg_integer,
-          wallet_password: String.t(),
-          language: String.t(),
-          mnemonic25th_word: String.t()
-        }
-
-  defstruct [:mnemonic, :num_accounts, :wallet_password, :language, :mnemonic25th_word]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :mnemonic, 1, type: :string
-  field :num_accounts, 2, type: :uint64
-  field :wallet_password, 3, type: :string
+  field :num_accounts, 2, type: :uint64, json_name: "numAccounts"
+  field :wallet_password, 3, type: :string, json_name: "walletPassword"
   field :language, 4, type: :string
-  field :mnemonic25th_word, 5, type: :string
+  field :mnemonic25th_word, 5, type: :string, json_name: "mnemonic25thWord"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ValidateKeystoresRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          keystores: [String.t()],
-          keystores_password: String.t()
-        }
-
-  defstruct [:keystores, :keystores_password]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :keystores, 1, repeated: true, type: :string
-  field :keystores_password, 2, type: :string
+  field :keystores_password, 2, type: :string, json_name: "keystoresPassword"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ListAccountsRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          get_deposit_tx_data: boolean,
-          page_size: integer,
-          page_token: String.t(),
-          all: boolean
-        }
-
-  defstruct [:get_deposit_tx_data, :page_size, :page_token, :all]
-
-  field :get_deposit_tx_data, 1, type: :bool
-  field :page_size, 2, type: :int32
-  field :page_token, 3, type: :string
+  field :get_deposit_tx_data, 1, type: :bool, json_name: "getDepositTxData"
+  field :page_size, 2, type: :int32, json_name: "pageSize"
+  field :page_token, 3, type: :string, json_name: "pageToken"
   field :all, 4, type: :bool
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ListAccountsResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          accounts: [Ethereum.Validator.Accounts.V2.Account.t()],
-          next_page_token: String.t(),
-          total_size: integer
-        }
-
-  defstruct [:accounts, :next_page_token, :total_size]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :accounts, 1, repeated: true, type: Ethereum.Validator.Accounts.V2.Account
-  field :next_page_token, 2, type: :string
-  field :total_size, 3, type: :int32
+  field :next_page_token, 2, type: :string, json_name: "nextPageToken"
+  field :total_size, 3, type: :int32, json_name: "totalSize"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Account do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          validating_public_key: binary,
-          account_name: String.t(),
-          deposit_tx_data: binary,
-          derivation_path: String.t()
-        }
-
-  defstruct [:validating_public_key, :account_name, :deposit_tx_data, :derivation_path]
-
-  field :validating_public_key, 1, type: :bytes
-  field :account_name, 2, type: :string
-  field :deposit_tx_data, 3, type: :bytes
-  field :derivation_path, 4, type: :string
+  field :validating_public_key, 1, type: :bytes, json_name: "validatingPublicKey"
+  field :account_name, 2, type: :string, json_name: "accountName"
+  field :deposit_tx_data, 3, type: :bytes, json_name: "depositTxData"
+  field :derivation_path, 4, type: :string, json_name: "derivationPath"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.AccountRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary],
-          indices: [non_neg_integer]
-        }
-
-  defstruct [:public_keys, :indices]
-
-  field :public_keys, 1, repeated: true, type: :bytes
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys"
   field :indices, 2, repeated: true, type: :uint64
 end
-
 defmodule Ethereum.Validator.Accounts.V2.NodeConnectionResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          beacon_node_endpoint: String.t(),
-          connected: boolean,
-          syncing: boolean,
-          genesis_time: non_neg_integer,
-          deposit_contract_address: binary
-        }
-
-  defstruct [
-    :beacon_node_endpoint,
-    :connected,
-    :syncing,
-    :genesis_time,
-    :deposit_contract_address
-  ]
-
-  field :beacon_node_endpoint, 1, type: :string
+  field :beacon_node_endpoint, 1, type: :string, json_name: "beaconNodeEndpoint"
   field :connected, 2, type: :bool
   field :syncing, 3, type: :bool
-  field :genesis_time, 4, type: :uint64
-  field :deposit_contract_address, 5, type: :bytes
+  field :genesis_time, 4, type: :uint64, json_name: "genesisTime"
+  field :deposit_contract_address, 5, type: :bytes, json_name: "depositContractAddress"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.LogsEndpointResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          validator_logs_endpoint: String.t(),
-          beacon_logs_endpoint: String.t()
-        }
-
-  defstruct [:validator_logs_endpoint, :beacon_logs_endpoint]
-
-  field :validator_logs_endpoint, 1, type: :string
-  field :beacon_logs_endpoint, 2, type: :string
+  field :validator_logs_endpoint, 1, type: :string, json_name: "validatorLogsEndpoint"
+  field :beacon_logs_endpoint, 2, type: :string, json_name: "beaconLogsEndpoint"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.VersionResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          beacon: String.t(),
-          validator: String.t()
-        }
-
-  defstruct [:beacon, :validator]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :beacon, 1, type: :string
   field :validator, 2, type: :string
 end
-
 defmodule Ethereum.Validator.Accounts.V2.HasWalletResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          wallet_exists: boolean
-        }
-
-  defstruct [:wallet_exists]
-
-  field :wallet_exists, 1, type: :bool
+  field :wallet_exists, 1, type: :bool, json_name: "walletExists"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ImportAccountsRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          keystores_imported: [String.t()],
-          keystores_password: String.t()
-        }
-
-  defstruct [:keystores_imported, :keystores_password]
-
-  field :keystores_imported, 1, repeated: true, type: :string
-  field :keystores_password, 2, type: :string
+  field :keystores_imported, 1, repeated: true, type: :string, json_name: "keystoresImported"
+  field :keystores_password, 2, type: :string, json_name: "keystoresPassword"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ImportAccountsResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          imported_public_keys: [binary]
-        }
-
-  defstruct [:imported_public_keys]
-
-  field :imported_public_keys, 1, repeated: true, type: :bytes
+  field :imported_public_keys, 1, repeated: true, type: :bytes, json_name: "importedPublicKeys"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.InitializeAuthRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          token: String.t()
-        }
-
-  defstruct [:token]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :token, 1, type: :string
 end
-
 defmodule Ethereum.Validator.Accounts.V2.InitializeAuthResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          has_signed_up: boolean,
-          has_wallet: boolean
-        }
-
-  defstruct [:has_signed_up, :has_wallet]
-
-  field :has_signed_up, 1, type: :bool
-  field :has_wallet, 2, type: :bool
+  field :has_signed_up, 1, type: :bool, json_name: "hasSignedUp"
+  field :has_wallet, 2, type: :bool, json_name: "hasWallet"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.BeaconStatusResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          beacon_node_endpoint: String.t(),
-          connected: boolean,
-          syncing: boolean,
-          genesis_time: non_neg_integer,
-          deposit_contract_address: binary,
-          chain_head: Ethereum.Eth.V1alpha1.ChainHead.t() | nil
-        }
-
-  defstruct [
-    :beacon_node_endpoint,
-    :connected,
-    :syncing,
-    :genesis_time,
-    :deposit_contract_address,
-    :chain_head
-  ]
-
-  field :beacon_node_endpoint, 1, type: :string
+  field :beacon_node_endpoint, 1, type: :string, json_name: "beaconNodeEndpoint"
   field :connected, 2, type: :bool
   field :syncing, 3, type: :bool
-  field :genesis_time, 4, type: :uint64
-  field :deposit_contract_address, 5, type: :bytes
-  field :chain_head, 6, type: Ethereum.Eth.V1alpha1.ChainHead
+  field :genesis_time, 4, type: :uint64, json_name: "genesisTime"
+  field :deposit_contract_address, 5, type: :bytes, json_name: "depositContractAddress"
+  field :chain_head, 6, type: Ethereum.Eth.V1alpha1.ChainHead, json_name: "chainHead"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.VoluntaryExitRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary]
-        }
-
-  defstruct [:public_keys]
-
-  field :public_keys, 1, repeated: true, type: :bytes
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.VoluntaryExitResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          exited_keys: [binary]
-        }
-
-  defstruct [:exited_keys]
-
-  field :exited_keys, 1, repeated: true, type: :bytes
+  field :exited_keys, 1, repeated: true, type: :bytes, json_name: "exitedKeys"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.BackupAccountsRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys: [binary],
-          backup_password: String.t()
-        }
-
-  defstruct [:public_keys, :backup_password]
-
-  field :public_keys, 1, repeated: true, type: :bytes
-  field :backup_password, 2, type: :string
+  field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys"
+  field :backup_password, 2, type: :string, json_name: "backupPassword"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.BackupAccountsResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          zip_file: binary
-        }
-
-  defstruct [:zip_file]
-
-  field :zip_file, 1, type: :bytes
+  field :zip_file, 1, type: :bytes, json_name: "zipFile"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.DeleteAccountsRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          public_keys_to_delete: [binary]
-        }
-
-  defstruct [:public_keys_to_delete]
-
-  field :public_keys_to_delete, 1, repeated: true, type: :bytes
+  field :public_keys_to_delete, 1, repeated: true, type: :bytes, json_name: "publicKeysToDelete"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.DeleteAccountsResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          deleted_keys: [binary]
-        }
-
-  defstruct [:deleted_keys]
-
-  field :deleted_keys, 1, repeated: true, type: :bytes
+  field :deleted_keys, 1, repeated: true, type: :bytes, json_name: "deletedKeys"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ExportSlashingProtectionResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          file: String.t()
-        }
-
-  defstruct [:file]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :file, 1, type: :string
 end
-
 defmodule Ethereum.Validator.Accounts.V2.ImportSlashingProtectionRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          slashing_protection_json: String.t()
-        }
-
-  defstruct [:slashing_protection_json]
-
-  field :slashing_protection_json, 1, type: :string
+  field :slashing_protection_json, 1, type: :string, json_name: "slashingProtectionJson"
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.Wallet"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.Wallet",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :CreateWallet,
       Ethereum.Validator.Accounts.V2.CreateWalletRequest,
@@ -503,10 +247,11 @@ defmodule Ethereum.Validator.Accounts.V2.Wallet.Stub do
   @moduledoc false
   use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Wallet.Service
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Accounts.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.Accounts"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.Accounts",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :ListAccounts,
       Ethereum.Validator.Accounts.V2.ListAccountsRequest,
@@ -529,10 +274,11 @@ defmodule Ethereum.Validator.Accounts.V2.Accounts.Stub do
   @moduledoc false
   use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Accounts.Service
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Beacon.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.Beacon"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.Beacon",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :GetBeaconStatus, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.BeaconStatusResponse
 
@@ -561,10 +307,11 @@ defmodule Ethereum.Validator.Accounts.V2.Beacon.Stub do
   @moduledoc false
   use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Beacon.Service
 end
-
 defmodule Ethereum.Validator.Accounts.V2.SlashingProtection.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.SlashingProtection"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.SlashingProtection",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :ExportSlashingProtection,
       Google.Protobuf.Empty,
@@ -579,10 +326,11 @@ defmodule Ethereum.Validator.Accounts.V2.SlashingProtection.Stub do
   @moduledoc false
   use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.SlashingProtection.Service
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Health.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.Health"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.Health",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :GetBeaconNodeConnection,
       Google.Protobuf.Empty,
@@ -603,10 +351,11 @@ defmodule Ethereum.Validator.Accounts.V2.Health.Stub do
   @moduledoc false
   use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.Health.Service
 end
-
 defmodule Ethereum.Validator.Accounts.V2.Auth.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.validator.accounts.v2.Auth"
+  use GRPC.Service,
+    name: "ethereum.validator.accounts.v2.Auth",
+    protoc_gen_elixir_version: "0.10.0"
 
   rpc :Initialize, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.InitializeAuthResponse
 end
