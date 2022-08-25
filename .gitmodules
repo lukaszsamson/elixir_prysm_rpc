@@ -10,3 +10,6 @@
 [submodule "github.com/gogo/protobuf"]
 	path = github.com/gogo/protobuf
 	url = https://github.com/gogo/protobuf.git
+[submodule "grpc-gateway"]
+	path = grpc-gateway
+	url = git@github.com:prysmaticlabs/grpc-gateway.git
