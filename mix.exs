@@ -22,7 +22,7 @@ defmodule PrysmRPC.MixProject do
   defp deps do
     [
       {:grpc, github: "elixir-grpc/grpc"},
-      {:protobuf, "~> 0.11"},
+      {:protobuf, "~> 0.10"},
       {:google_protos, "~> 0.3"}
     ]
   end
