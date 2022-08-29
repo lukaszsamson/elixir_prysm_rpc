@@ -42,7 +42,11 @@ defmodule Ethereum.Validator.Accounts.V2.SignRequest do
   field :exit, 104, type: Ethereum.Eth.V1alpha1.VoluntaryExit, oneof: 0
   field :slot, 105, type: :uint64, oneof: 0, deprecated: false
   field :epoch, 106, type: :uint64, oneof: 0, deprecated: false
-  field :blockV2, 107, type: Ethereum.Eth.V1alpha1.BeaconBlockAltair, oneof: 0
+
+  field :block_altair, 107,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockAltair,
+    json_name: "blockAltair",
+    oneof: 0
 
   field :sync_aggregator_selection_data, 108,
     type: Ethereum.Eth.V1alpha1.SyncAggregatorSelectionData,
@@ -55,11 +59,15 @@ defmodule Ethereum.Validator.Accounts.V2.SignRequest do
     oneof: 0
 
   field :sync_message_block_root, 110, type: :bytes, json_name: "syncMessageBlockRoot", oneof: 0
-  field :blockV3, 111, type: Ethereum.Eth.V1alpha1.BeaconBlockBellatrix, oneof: 0
 
-  field :blinded_blockV3, 112,
+  field :block_bellatrix, 111,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockBellatrix,
+    json_name: "blockBellatrix",
+    oneof: 0
+
+  field :blinded_block_bellatrix, 112,
     type: Ethereum.Eth.V1alpha1.BlindedBeaconBlockBellatrix,
-    json_name: "blindedBlockV3",
+    json_name: "blindedBlockBellatrix",
     oneof: 0
 
   field :registration, 113, type: Ethereum.Eth.V1alpha1.ValidatorRegistrationV1, oneof: 0

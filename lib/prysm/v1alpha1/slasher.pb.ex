@@ -49,43 +49,6 @@ defmodule Ethereum.Eth.V1alpha1.HighestAttestation do
     deprecated: false
 end
 
-defmodule Ethereum.Eth.V1alpha1.ProposalHistory do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :epoch_bits, 1, type: :bytes, json_name: "epochBits", deprecated: true
-  field :latest_epoch_written, 2, type: :uint64, json_name: "latestEpochWritten", deprecated: true
-end
-
-defmodule Ethereum.Eth.V1alpha1.Slashable do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :slashable, 1, type: :bool, deprecated: true
-end
-
-defmodule Ethereum.Eth.V1alpha1.AttestationHistory.TargetToSourceEntry do
-  @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :key, 1, type: :uint64
-  field :value, 2, type: :uint64
-end
-
-defmodule Ethereum.Eth.V1alpha1.AttestationHistory do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :target_to_source, 1,
-    repeated: true,
-    type: Ethereum.Eth.V1alpha1.AttestationHistory.TargetToSourceEntry,
-    json_name: "targetToSource",
-    map: true,
-    deprecated: true
-
-  field :latest_epoch_written, 2, type: :uint64, json_name: "latestEpochWritten", deprecated: true
-end
-
 defmodule Ethereum.Eth.V1alpha1.Slasher.Service do
   @moduledoc false
   use GRPC.Service, name: "ethereum.eth.v1alpha1.Slasher", protoc_gen_elixir_version: "0.11.0"

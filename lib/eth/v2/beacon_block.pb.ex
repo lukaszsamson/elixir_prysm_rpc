@@ -10,7 +10,7 @@ defmodule Ethereum.Eth.V2.BlockResponseV2 do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :version, 1, type: Ethereum.Eth.V2.Version, enum: true
-  field :data, 2, type: Ethereum.Eth.V2.SignedBeaconBlockContainerV2
+  field :data, 2, type: Ethereum.Eth.V2.SignedBeaconBlockContainer
   field :execution_optimistic, 3, type: :bool, json_name: "executionOptimistic"
 end
 
@@ -33,7 +33,7 @@ defmodule Ethereum.Eth.V2.BeaconBlockContainerV2 do
     oneof: 0
 end
 
-defmodule Ethereum.Eth.V2.SignedBeaconBlockContainerV2 do
+defmodule Ethereum.Eth.V2.SignedBeaconBlockContainer do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 

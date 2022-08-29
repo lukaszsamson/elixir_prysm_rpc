@@ -199,6 +199,29 @@ defmodule Ethereum.Eth.Service.SetFeeRecipientByPubkeyRequest do
   field :ethaddress, 2, type: :bytes
 end
 
+defmodule Ethereum.Eth.Service.GetGasLimitResponse.GasLimit do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :pubkey, 1, type: :bytes
+  field :gas_limit, 2, type: :uint64, json_name: "gasLimit"
+end
+
+defmodule Ethereum.Eth.Service.GetGasLimitResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :data, 1, type: Ethereum.Eth.Service.GetGasLimitResponse.GasLimit
+end
+
+defmodule Ethereum.Eth.Service.SetGasLimitRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :pubkey, 1, type: :bytes
+  field :gas_limit, 2, type: :uint64, json_name: "gasLimit"
+end
+
 defmodule Ethereum.Eth.Service.KeyManagement.Service do
   @moduledoc false
   use GRPC.Service,
@@ -234,6 +257,10 @@ defmodule Ethereum.Eth.Service.KeyManagement.Service do
       Google.Protobuf.Empty
 
   rpc :DeleteFeeRecipientByPubkey, Ethereum.Eth.Service.PubkeyRequest, Google.Protobuf.Empty
+
+  rpc :GetGasLimit, Ethereum.Eth.Service.PubkeyRequest, Ethereum.Eth.Service.GetGasLimitResponse
+
+  rpc :SetGasLimit, Ethereum.Eth.Service.SetGasLimitRequest, Google.Protobuf.Empty
 end
 
 defmodule Ethereum.Eth.Service.KeyManagement.Stub do

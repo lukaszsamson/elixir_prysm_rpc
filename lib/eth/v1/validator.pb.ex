@@ -202,3 +202,32 @@ defmodule Ethereum.Eth.V1.PrepareBeaconProposerRequest do
     repeated: true,
     type: Ethereum.Eth.V1.PrepareBeaconProposerRequest.FeeRecipientContainer
 end
+
+defmodule Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest.ValidatorRegistration do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
+  field :gas_limit, 2, type: :uint64, json_name: "gasLimit"
+  field :timestamp, 3, type: :uint64
+  field :pubkey, 4, type: :bytes, deprecated: false
+end
+
+defmodule Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest.SignedValidatorRegistration do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :message, 1,
+    type: Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest.ValidatorRegistration
+
+  field :signature, 2, type: :bytes, deprecated: false
+end
+
+defmodule Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :registrations, 1,
+    repeated: true,
+    type: Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest.SignedValidatorRegistration
+end

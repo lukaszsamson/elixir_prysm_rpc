@@ -511,12 +511,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
       Ethereum.Eth.V1alpha1.MultipleValidatorStatusRequest,
       Ethereum.Eth.V1alpha1.MultipleValidatorStatusResponse
 
-  rpc :GetBlock, Ethereum.Eth.V1alpha1.BlockRequest, Ethereum.Eth.V1alpha1.BeaconBlock
-
-  rpc :ProposeBlock,
-      Ethereum.Eth.V1alpha1.SignedBeaconBlock,
-      Ethereum.Eth.V1alpha1.ProposeResponse
-
   rpc :GetBeaconBlock,
       Ethereum.Eth.V1alpha1.BlockRequest,
       Ethereum.Eth.V1alpha1.GenericBeaconBlock
@@ -576,10 +570,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :StreamBlocksAltair,
       Ethereum.Eth.V1alpha1.StreamBlocksRequest,
       stream(Ethereum.Eth.V1alpha1.StreamBlocksResponse)
-
-  rpc :SubmitValidatorRegistration,
-      Ethereum.Eth.V1alpha1.SignedValidatorRegistrationV1,
-      Google.Protobuf.Empty
 
   rpc :SubmitValidatorRegistrations,
       Ethereum.Eth.V1alpha1.SignedValidatorRegistrationsV1,

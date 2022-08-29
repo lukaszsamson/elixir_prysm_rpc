@@ -53,32 +53,6 @@ defmodule Ethereum.Eth.V1alpha1.LoggingLevelRequest do
   field :level, 1, type: Ethereum.Eth.V1alpha1.LoggingLevelRequest.Level, enum: true
 end
 
-defmodule Ethereum.Eth.V1alpha1.ForkChoiceResponse do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :justified_epoch, 1, type: :uint64, json_name: "justifiedEpoch", deprecated: false
-  field :finalized_epoch, 2, type: :uint64, json_name: "finalizedEpoch", deprecated: false
-
-  field :forkchoice_nodes, 4,
-    repeated: true,
-    type: Ethereum.Eth.V1alpha1.ForkChoiceNode,
-    json_name: "forkchoiceNodes"
-end
-
-defmodule Ethereum.Eth.V1alpha1.ForkChoiceNode do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :slot, 1, type: :uint64, deprecated: false
-  field :root, 2, type: :bytes
-  field :parent, 3, type: :bytes
-  field :justified_epoch, 4, type: :uint64, json_name: "justifiedEpoch", deprecated: false
-  field :finalized_epoch, 5, type: :uint64, json_name: "finalizedEpoch", deprecated: false
-  field :weight, 6, type: :uint64
-  field :best_descendant, 7, type: :bytes, json_name: "bestDescendant"
-end
-
 defmodule Ethereum.Eth.V1alpha1.DebugPeerResponses do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -169,8 +143,6 @@ defmodule Ethereum.Eth.V1alpha1.Debug.Service do
   rpc :GetBlock, Ethereum.Eth.V1alpha1.BlockRequestByRoot, Ethereum.Eth.V1alpha1.SSZResponse
 
   rpc :SetLoggingLevel, Ethereum.Eth.V1alpha1.LoggingLevelRequest, Google.Protobuf.Empty
-
-  rpc :GetForkChoice, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ForkChoiceResponse
 
   rpc :ListPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.DebugPeerResponses
 

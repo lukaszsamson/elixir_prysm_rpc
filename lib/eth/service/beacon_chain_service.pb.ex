@@ -36,7 +36,7 @@ defmodule Ethereum.Eth.Service.BeaconChain.Service do
 
   rpc :GetBlockHeader, Ethereum.Eth.V1.BlockRequest, Ethereum.Eth.V1.BlockHeaderResponse
 
-  rpc :SubmitBlock, Ethereum.Eth.V2.SignedBeaconBlockContainerV2, Google.Protobuf.Empty
+  rpc :SubmitBlock, Ethereum.Eth.V2.SignedBeaconBlockContainer, Google.Protobuf.Empty
 
   rpc :SubmitBlockSSZ, Ethereum.Eth.V2.SSZContainer, Google.Protobuf.Empty
 

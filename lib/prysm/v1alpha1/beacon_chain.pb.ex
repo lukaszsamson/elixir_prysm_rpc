@@ -75,15 +75,6 @@ defmodule Ethereum.Eth.V1alpha1.ListBlocksRequest do
   field :page_token, 6, type: :string, json_name: "pageToken"
 end
 
-defmodule Ethereum.Eth.V1alpha1.ListBlocksResponse do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :blockContainers, 1, repeated: true, type: Ethereum.Eth.V1alpha1.BeaconBlockContainer
-  field :next_page_token, 2, type: :string, json_name: "nextPageToken"
-  field :total_size, 3, type: :int32, json_name: "totalSize"
-end
-
 defmodule Ethereum.Eth.V1alpha1.ListBeaconBlocksResponse do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -636,10 +627,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   rpc :AttestationPool,
       Ethereum.Eth.V1alpha1.AttestationPoolRequest,
       Ethereum.Eth.V1alpha1.AttestationPoolResponse
-
-  rpc :ListBlocks,
-      Ethereum.Eth.V1alpha1.ListBlocksRequest,
-      Ethereum.Eth.V1alpha1.ListBlocksResponse
 
   rpc :ListBeaconBlocks,
       Ethereum.Eth.V1alpha1.ListBlocksRequest,

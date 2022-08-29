@@ -16,8 +16,6 @@ defmodule Ethereum.Eth.Service.BeaconValidator.Service do
       Ethereum.Eth.V2.SyncCommitteeDutiesRequest,
       Ethereum.Eth.V2.SyncCommitteeDutiesResponse
 
-  rpc :ProduceBlock, Ethereum.Eth.V1.ProduceBlockRequest, Ethereum.Eth.V1.ProduceBlockResponse
-
   rpc :ProduceBlockV2, Ethereum.Eth.V1.ProduceBlockRequest, Ethereum.Eth.V2.ProduceBlockResponseV2
 
   rpc :ProduceBlockV2SSZ, Ethereum.Eth.V1.ProduceBlockRequest, Ethereum.Eth.V2.SSZContainer
@@ -29,6 +27,10 @@ defmodule Ethereum.Eth.Service.BeaconValidator.Service do
   rpc :ProduceBlindedBlockSSZ, Ethereum.Eth.V1.ProduceBlockRequest, Ethereum.Eth.V2.SSZContainer
 
   rpc :PrepareBeaconProposer, Ethereum.Eth.V1.PrepareBeaconProposerRequest, Google.Protobuf.Empty
+
+  rpc :SubmitValidatorRegistration,
+      Ethereum.Eth.V1.SubmitValidatorRegistrationsRequest,
+      Google.Protobuf.Empty
 
   rpc :ProduceAttestationData,
       Ethereum.Eth.V1.ProduceAttestationDataRequest,

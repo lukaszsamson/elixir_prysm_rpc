@@ -259,10 +259,6 @@ defmodule Ethereum.Validator.Accounts.V2.Wallet.Service do
 
   rpc :WalletConfig, Google.Protobuf.Empty, Ethereum.Validator.Accounts.V2.WalletResponse
 
-  rpc :ImportAccounts,
-      Ethereum.Validator.Accounts.V2.ImportAccountsRequest,
-      Ethereum.Validator.Accounts.V2.ImportAccountsResponse
-
   rpc :ValidateKeystores,
       Ethereum.Validator.Accounts.V2.ValidateKeystoresRequest,
       Google.Protobuf.Empty
@@ -290,10 +286,6 @@ defmodule Ethereum.Validator.Accounts.V2.Accounts.Service do
   rpc :BackupAccounts,
       Ethereum.Validator.Accounts.V2.BackupAccountsRequest,
       Ethereum.Validator.Accounts.V2.BackupAccountsResponse
-
-  rpc :DeleteAccounts,
-      Ethereum.Validator.Accounts.V2.DeleteAccountsRequest,
-      Ethereum.Validator.Accounts.V2.DeleteAccountsResponse
 
   rpc :VoluntaryExit,
       Ethereum.Validator.Accounts.V2.VoluntaryExitRequest,

@@ -1,4 +1,4 @@
-defmodule Ethereum.Eth.V2.BeaconStateV2 do
+defmodule Ethereum.Eth.V2.BeaconState do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
@@ -192,7 +192,7 @@ defmodule Ethereum.Eth.V2.BeaconStateBellatrix do
     json_name: "latestExecutionPayloadHeader"
 end
 
-defmodule Ethereum.Eth.V2.StateRequestV2 do
+defmodule Ethereum.Eth.V2.BeaconStateRequestV2 do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
@@ -223,7 +223,7 @@ defmodule Ethereum.Eth.V2.BeaconStateContainer do
   oneof :state, 0
 
   field :phase0_state, 1, type: Ethereum.Eth.V1.BeaconState, json_name: "phase0State", oneof: 0
-  field :altair_state, 2, type: Ethereum.Eth.V2.BeaconStateV2, json_name: "altairState", oneof: 0
+  field :altair_state, 2, type: Ethereum.Eth.V2.BeaconState, json_name: "altairState", oneof: 0
 
   field :bellatrix_state, 3,
     type: Ethereum.Eth.V2.BeaconStateBellatrix,
