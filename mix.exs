@@ -21,7 +21,7 @@ defmodule PrysmRPC.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:grpc, github: "elixir-grpc/grpc"},
+      {:grpc, "~> 0.5.0"},
       {:protobuf, "~> 0.10"},
       {:google_protos, "~> 0.3"}
     ]
