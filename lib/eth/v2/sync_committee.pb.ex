@@ -44,6 +44,7 @@ defmodule Ethereum.Eth.V2.StateSyncCommitteesResponse do
 
   field :data, 1, type: Ethereum.Eth.V2.SyncCommitteeValidators
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V2.SyncCommitteeValidators do

@@ -30,6 +30,14 @@ defmodule Ethereum.Engine.V1.ExecutionPayload do
   field :transactions, 14, repeated: true, type: :bytes, deprecated: false
 end
 
+defmodule Ethereum.Engine.V1.ExecutionPayloadBodyV1 do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :transactions, 1, repeated: true, type: :bytes
+  field :withdrawals, 2, repeated: true, type: Ethereum.Engine.V1.Withdrawal
+end
+
 defmodule Ethereum.Engine.V1.ExecutionPayloadCapella do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -49,6 +57,14 @@ defmodule Ethereum.Engine.V1.ExecutionPayloadCapella do
   field :block_hash, 13, type: :bytes, json_name: "blockHash", deprecated: false
   field :transactions, 14, repeated: true, type: :bytes, deprecated: false
   field :withdrawals, 15, repeated: true, type: Ethereum.Engine.V1.Withdrawal, deprecated: false
+end
+
+defmodule Ethereum.Engine.V1.ExecutionPayloadCapellaWithValue do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :payload, 1, type: Ethereum.Engine.V1.ExecutionPayloadCapella
+  field :value, 2, type: :bytes
 end
 
 defmodule Ethereum.Engine.V1.ExecutionPayloadHeader do
@@ -114,6 +130,21 @@ defmodule Ethereum.Engine.V1.PayloadAttributes do
     deprecated: false
 end
 
+defmodule Ethereum.Engine.V1.PayloadAttributesV2 do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :timestamp, 1, type: :uint64
+  field :prev_randao, 2, type: :bytes, json_name: "prevRandao", deprecated: false
+
+  field :suggested_fee_recipient, 3,
+    type: :bytes,
+    json_name: "suggestedFeeRecipient",
+    deprecated: false
+
+  field :withdrawals, 4, repeated: true, type: Ethereum.Engine.V1.Withdrawal, deprecated: false
+end
+
 defmodule Ethereum.Engine.V1.PayloadStatus do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -136,7 +167,31 @@ defmodule Ethereum.Engine.V1.Withdrawal do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
-  field :withdrawal_index, 1, type: :uint64, json_name: "withdrawalIndex"
-  field :execution_address, 2, type: :bytes, json_name: "executionAddress", deprecated: false
-  field :amount, 3, type: :uint64
+  field :index, 1, type: :uint64
+  field :validator_index, 2, type: :uint64, json_name: "validatorIndex", deprecated: false
+  field :address, 3, type: :bytes, deprecated: false
+  field :amount, 4, type: :uint64
+end
+
+defmodule Ethereum.Engine.V1.BlobsBundle do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :block_hash, 1, type: :bytes, json_name: "blockHash", deprecated: false
+
+  field :kzg_commitments, 2,
+    repeated: true,
+    type: :bytes,
+    json_name: "kzgCommitments",
+    deprecated: false
+
+  field :blobs, 3, repeated: true, type: Ethereum.Engine.V1.Blob, deprecated: false
+  field :aggregated_proof, 4, type: :bytes, json_name: "aggregatedProof", deprecated: false
+end
+
+defmodule Ethereum.Engine.V1.Blob do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :data, 1, type: :bytes, deprecated: false
 end

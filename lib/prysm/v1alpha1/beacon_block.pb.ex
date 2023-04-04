@@ -555,3 +555,20 @@ defmodule Ethereum.Eth.V1alpha1.SignedBuilderBid do
   field :message, 1, type: Ethereum.Eth.V1alpha1.BuilderBid
   field :signature, 2, type: :bytes, deprecated: false
 end
+
+defmodule Ethereum.Eth.V1alpha1.BuilderBidCapella do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :header, 1, type: Ethereum.Engine.V1.ExecutionPayloadHeaderCapella
+  field :value, 2, type: :bytes, deprecated: false
+  field :pubkey, 3, type: :bytes, deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.SignedBuilderBidCapella do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :message, 1, type: Ethereum.Eth.V1alpha1.BuilderBidCapella
+  field :signature, 2, type: :bytes, deprecated: false
+end

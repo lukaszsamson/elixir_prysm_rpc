@@ -71,6 +71,17 @@ defmodule Ethereum.Validator.Accounts.V2.SignRequest do
     oneof: 0
 
   field :registration, 113, type: Ethereum.Eth.V1alpha1.ValidatorRegistrationV1, oneof: 0
+
+  field :block_capella, 114,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockCapella,
+    json_name: "blockCapella",
+    oneof: 0
+
+  field :blinded_block_capella, 115,
+    type: Ethereum.Eth.V1alpha1.BlindedBeaconBlockCapella,
+    json_name: "blindedBlockCapella",
+    oneof: 0
+
   field :signing_slot, 6, type: :uint64, json_name: "signingSlot", deprecated: false
 end
 

@@ -59,3 +59,49 @@ defmodule Ethereum.Eth.V1.EventFinalizedCheckpoint do
   field :epoch, 3, type: :uint64, deprecated: false
   field :execution_optimistic, 4, type: :bool, json_name: "executionOptimistic"
 end
+
+defmodule Ethereum.Eth.V1.EventPayloadAttributeV1.BasePayloadAttribute do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :proposal_slot, 3, type: :uint64, json_name: "proposalSlot", deprecated: false
+  field :parent_block_number, 4, type: :uint64, json_name: "parentBlockNumber"
+  field :parent_block_root, 5, type: :bytes, json_name: "parentBlockRoot", deprecated: false
+  field :parent_block_hash, 6, type: :bytes, json_name: "parentBlockHash", deprecated: false
+  field :proposer_index, 7, type: :uint64, json_name: "proposerIndex", deprecated: false
+
+  field :payload_attributes, 8,
+    type: Ethereum.Engine.V1.PayloadAttributes,
+    json_name: "payloadAttributes"
+end
+
+defmodule Ethereum.Eth.V1.EventPayloadAttributeV1 do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :version, 1, type: :string
+  field :data, 2, type: Ethereum.Eth.V1.EventPayloadAttributeV1.BasePayloadAttribute
+end
+
+defmodule Ethereum.Eth.V1.EventPayloadAttributeV2.BasePayloadAttribute do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :proposal_slot, 3, type: :uint64, json_name: "proposalSlot", deprecated: false
+  field :parent_block_number, 4, type: :uint64, json_name: "parentBlockNumber"
+  field :parent_block_root, 5, type: :bytes, json_name: "parentBlockRoot", deprecated: false
+  field :parent_block_hash, 6, type: :bytes, json_name: "parentBlockHash", deprecated: false
+  field :proposer_index, 7, type: :uint64, json_name: "proposerIndex", deprecated: false
+
+  field :payload_attributes, 8,
+    type: Ethereum.Engine.V1.PayloadAttributesV2,
+    json_name: "payloadAttributes"
+end
+
+defmodule Ethereum.Eth.V1.EventPayloadAttributeV2 do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :version, 1, type: :string
+  field :data, 2, type: Ethereum.Eth.V1.EventPayloadAttributeV2.BasePayloadAttribute
+end

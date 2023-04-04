@@ -9,7 +9,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorChangeSet do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :action, 1, type: Ethereum.Eth.V1alpha1.SetAction, enum: true
   field :public_keys, 2, repeated: true, type: :bytes, json_name: "publicKeys"
@@ -115,6 +115,16 @@ defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
   field :blinded_bellatrix_block, 6,
     type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockBellatrix,
     json_name: "blindedBellatrixBlock",
+    oneof: 0
+
+  field :capella_block, 7,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockCapella,
+    json_name: "capellaBlock",
+    oneof: 0
+
+  field :blinded_capella_block, 8,
+    type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockCapella,
+    json_name: "blindedCapellaBlock",
     oneof: 0
 end
 
@@ -357,7 +367,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :current_effective_balances, 1,
     repeated: true,
@@ -402,7 +412,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorQueue do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :churn_limit, 1, type: :uint64, json_name: "churnLimit"
 
@@ -484,7 +494,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.GetValidatorParticipationRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   oneof :query_filter, 0
 
@@ -494,7 +504,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipationResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :finalized, 2, type: :bool

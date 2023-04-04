@@ -5,4 +5,5 @@ defmodule Ethereum.Eth.V2.Version do
   field :PHASE0, 0
   field :ALTAIR, 1
   field :BELLATRIX, 2
+  field :CAPELLA, 3
 end

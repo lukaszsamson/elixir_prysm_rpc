@@ -1,3 +1,12 @@
+defmodule Ethereum.Eth.V1.ForkChoiceNodeValidity do
+  @moduledoc false
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :VALID, 0
+  field :INVALID, 1
+  field :OPTIMISTIC, 2
+end
+
 defmodule Ethereum.Eth.V1.GenesisResponse.Genesis do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -39,6 +48,7 @@ defmodule Ethereum.Eth.V1.StateRootResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.StateRootResponse.StateRoot
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.StateForkResponse do
@@ -47,6 +57,7 @@ defmodule Ethereum.Eth.V1.StateForkResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.Fork
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.StateFinalityCheckpointResponse.StateFinalityCheckpoint do
@@ -64,6 +75,7 @@ defmodule Ethereum.Eth.V1.StateFinalityCheckpointResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.StateFinalityCheckpointResponse.StateFinalityCheckpoint
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.StateValidatorsRequest do
@@ -89,6 +101,7 @@ defmodule Ethereum.Eth.V1.StateValidatorsResponse do
 
   field :data, 1, repeated: true, type: Ethereum.Eth.V1.ValidatorContainer
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.ValidatorBalancesResponse do
@@ -97,6 +110,7 @@ defmodule Ethereum.Eth.V1.ValidatorBalancesResponse do
 
   field :data, 1, repeated: true, type: Ethereum.Eth.V1.ValidatorBalance
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.ValidatorBalance do
@@ -121,6 +135,7 @@ defmodule Ethereum.Eth.V1.StateValidatorResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.ValidatorContainer
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.StateCommitteesRequest do
@@ -139,6 +154,7 @@ defmodule Ethereum.Eth.V1.StateCommitteesResponse do
 
   field :data, 1, repeated: true, type: Ethereum.Eth.V1.Committee
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.BlockAttestationsResponse do
@@ -147,6 +163,7 @@ defmodule Ethereum.Eth.V1.BlockAttestationsResponse do
 
   field :data, 1, repeated: true, type: Ethereum.Eth.V1.Attestation
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.BlockRootContainer do
@@ -162,6 +179,7 @@ defmodule Ethereum.Eth.V1.BlockRootResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.BlockRootContainer
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.BlockHeadersRequest do
@@ -183,6 +201,7 @@ defmodule Ethereum.Eth.V1.BlockHeadersResponse do
 
   field :data, 1, repeated: true, type: Ethereum.Eth.V1.BlockHeaderContainer
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.BlockRequest do
@@ -198,6 +217,7 @@ defmodule Ethereum.Eth.V1.BlockHeaderResponse do
 
   field :data, 1, type: Ethereum.Eth.V1.BlockHeaderContainer
   field :execution_optimistic, 2, type: :bool, json_name: "executionOptimistic"
+  field :finalized, 3, type: :bool
 end
 
 defmodule Ethereum.Eth.V1.BlockHeaderContainer do
@@ -326,15 +346,83 @@ end
 
 defmodule Ethereum.Eth.V1.WeakSubjectivityResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :data, 1, type: Ethereum.Eth.V1.WeakSubjectivityData
 end
 
 defmodule Ethereum.Eth.V1.WeakSubjectivityData do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :ws_checkpoint, 1, type: Ethereum.Eth.V1.Checkpoint, json_name: "wsCheckpoint"
   field :state_root, 2, type: :bytes, json_name: "stateRoot"
+end
+
+defmodule Ethereum.Eth.V1.ForkChoiceDump do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :justified_checkpoint, 1,
+    type: Ethereum.Eth.V1.Checkpoint,
+    json_name: "justifiedCheckpoint"
+
+  field :finalized_checkpoint, 2,
+    type: Ethereum.Eth.V1.Checkpoint,
+    json_name: "finalizedCheckpoint"
+
+  field :unrealized_justified_checkpoint, 4,
+    type: Ethereum.Eth.V1.Checkpoint,
+    json_name: "unrealizedJustifiedCheckpoint"
+
+  field :unrealized_finalized_checkpoint, 5,
+    type: Ethereum.Eth.V1.Checkpoint,
+    json_name: "unrealizedFinalizedCheckpoint"
+
+  field :proposer_boost_root, 6, type: :bytes, json_name: "proposerBoostRoot", deprecated: false
+
+  field :previous_proposer_boost_root, 7,
+    type: :bytes,
+    json_name: "previousProposerBoostRoot",
+    deprecated: false
+
+  field :head_root, 8, type: :bytes, json_name: "headRoot", deprecated: false
+
+  field :fork_choice_nodes, 9,
+    repeated: true,
+    type: Ethereum.Eth.V1.ForkChoiceNode,
+    json_name: "forkChoiceNodes"
+end
+
+defmodule Ethereum.Eth.V1.ForkChoiceNode do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :slot, 1, type: :uint64, deprecated: false
+  field :block_root, 2, type: :bytes, json_name: "blockRoot", deprecated: false
+  field :parent_root, 3, type: :bytes, json_name: "parentRoot", deprecated: false
+  field :justified_epoch, 4, type: :uint64, json_name: "justifiedEpoch", deprecated: false
+  field :finalized_epoch, 5, type: :uint64, json_name: "finalizedEpoch", deprecated: false
+
+  field :unrealized_justified_epoch, 6,
+    type: :uint64,
+    json_name: "unrealizedJustifiedEpoch",
+    deprecated: false
+
+  field :unrealized_finalized_epoch, 7,
+    type: :uint64,
+    json_name: "unrealizedFinalizedEpoch",
+    deprecated: false
+
+  field :balance, 8, type: :uint64
+  field :weight, 9, type: :uint64
+  field :execution_optimistic, 10, type: :bool, json_name: "executionOptimistic"
+
+  field :execution_block_hash, 11,
+    type: :bytes,
+    json_name: "executionBlockHash",
+    deprecated: false
+
+  field :timestamp, 12, type: :uint64
+  field :validity, 13, type: Ethereum.Eth.V1.ForkChoiceNodeValidity, enum: true
 end

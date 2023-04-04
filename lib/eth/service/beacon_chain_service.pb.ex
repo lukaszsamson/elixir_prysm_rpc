@@ -32,6 +32,8 @@ defmodule Ethereum.Eth.Service.BeaconChain.Service do
       Ethereum.Eth.V2.StateSyncCommitteesRequest,
       Ethereum.Eth.V2.StateSyncCommitteesResponse
 
+  rpc :GetRandao, Ethereum.Eth.V2.RandaoRequest, Ethereum.Eth.V2.RandaoResponse
+
   rpc :ListBlockHeaders, Ethereum.Eth.V1.BlockHeadersRequest, Ethereum.Eth.V1.BlockHeadersResponse
 
   rpc :GetBlockHeader, Ethereum.Eth.V1.BlockRequest, Ethereum.Eth.V1.BlockHeaderResponse
@@ -53,6 +55,10 @@ defmodule Ethereum.Eth.Service.BeaconChain.Service do
   rpc :GetBlockSSZ, Ethereum.Eth.V1.BlockRequest, Ethereum.Eth.V1.BlockSSZResponse
 
   rpc :GetBlockV2, Ethereum.Eth.V2.BlockRequestV2, Ethereum.Eth.V2.BlockResponseV2
+
+  rpc :GetBlindedBlock, Ethereum.Eth.V1.BlockRequest, Ethereum.Eth.V2.BlindedBlockResponse
+
+  rpc :GetBlindedBlockSSZ, Ethereum.Eth.V1.BlockRequest, Ethereum.Eth.V2.SSZContainer
 
   rpc :GetBlockSSZV2, Ethereum.Eth.V2.BlockRequestV2, Ethereum.Eth.V2.SSZContainer
 
@@ -82,9 +88,17 @@ defmodule Ethereum.Eth.Service.BeaconChain.Service do
 
   rpc :SubmitVoluntaryExit, Ethereum.Eth.V1.SignedVoluntaryExit, Google.Protobuf.Empty
 
+  rpc :SubmitSignedBLSToExecutionChanges,
+      Ethereum.Eth.V2.SubmitBLSToExecutionChangesRequest,
+      Google.Protobuf.Empty
+
   rpc :SubmitPoolSyncCommitteeSignatures,
       Ethereum.Eth.V2.SubmitPoolSyncCommitteeSignatures,
       Google.Protobuf.Empty
+
+  rpc :ListBLSToExecutionChanges,
+      Google.Protobuf.Empty,
+      Ethereum.Eth.V2.BLSToExecutionChangesPoolResponse
 
   rpc :GetForkSchedule, Google.Protobuf.Empty, Ethereum.Eth.V1.ForkScheduleResponse
 

@@ -489,17 +489,17 @@ defmodule Ethereum.Eth.V1alpha1.BeaconStateCapella do
     type: Ethereum.Engine.V1.ExecutionPayloadHeaderCapella,
     json_name: "latestExecutionPayloadHeader"
 
-  field :withdrawal_queue, 11001,
-    repeated: true,
-    type: Ethereum.Engine.V1.Withdrawal,
-    json_name: "withdrawalQueue",
+  field :next_withdrawal_index, 11001, type: :uint64, json_name: "nextWithdrawalIndex"
+
+  field :next_withdrawal_validator_index, 11002,
+    type: :uint64,
+    json_name: "nextWithdrawalValidatorIndex",
     deprecated: false
 
-  field :next_withdrawal_index, 11002, type: :uint64, json_name: "nextWithdrawalIndex"
-
-  field :next_partial_withdrawal_validator_index, 11003,
-    type: :uint64,
-    json_name: "nextPartialWithdrawalValidatorIndex",
+  field :historical_summaries, 11003,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.HistoricalSummary,
+    json_name: "historicalSummaries",
     deprecated: false
 end
 
@@ -510,4 +510,12 @@ defmodule Ethereum.Eth.V1alpha1.PowBlock do
   field :block_hash, 1, type: :bytes, json_name: "blockHash", deprecated: false
   field :parent_hash, 2, type: :bytes, json_name: "parentHash", deprecated: false
   field :total_difficulty, 3, type: :bytes, json_name: "totalDifficulty", deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.HistoricalSummary do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :block_summary_root, 1, type: :bytes, json_name: "blockSummaryRoot", deprecated: false
+  field :state_summary_root, 2, type: :bytes, json_name: "stateSummaryRoot", deprecated: false
 end

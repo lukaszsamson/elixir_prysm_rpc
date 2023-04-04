@@ -59,6 +59,8 @@ defmodule Ethereum.Eth.Service.BeaconValidator.Service do
   rpc :SubmitContributionAndProofs,
       Ethereum.Eth.V2.SubmitContributionAndProofsRequest,
       Google.Protobuf.Empty
+
+  rpc :GetLiveness, Ethereum.Eth.V2.GetLivenessRequest, Ethereum.Eth.V2.GetLivenessResponse
 end
 
 defmodule Ethereum.Eth.Service.BeaconValidator.Stub do

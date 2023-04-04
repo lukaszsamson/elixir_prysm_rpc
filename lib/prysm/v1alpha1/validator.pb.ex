@@ -46,7 +46,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   oneof :block, 0
 
@@ -63,6 +63,11 @@ defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   field :bellatrix_block, 3,
     type: Ethereum.Eth.V1alpha1.SignedBeaconBlockBellatrix,
     json_name: "bellatrixBlock",
+    oneof: 0
+
+  field :capella_block, 4,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockCapella,
+    json_name: "capellaBlock",
     oneof: 0
 end
 
@@ -236,6 +241,7 @@ defmodule Ethereum.Eth.V1alpha1.BlockRequest do
   field :slot, 1, type: :uint64, deprecated: false
   field :randao_reveal, 2, type: :bytes, json_name: "randaoReveal", deprecated: false
   field :graffiti, 3, type: :bytes, deprecated: false
+  field :skip_mev_boost, 4, type: :bool, json_name: "skipMevBoost"
 end
 
 defmodule Ethereum.Eth.V1alpha1.ProposeResponse do
@@ -347,35 +353,6 @@ defmodule Ethereum.Eth.V1alpha1.Validator do
   field :withdrawable_epoch, 8, type: :uint64, json_name: "withdrawableEpoch", deprecated: false
 end
 
-defmodule Ethereum.Eth.V1alpha1.ValidatorCapella do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
-
-  field :withdrawal_credentials, 2,
-    type: :bytes,
-    json_name: "withdrawalCredentials",
-    deprecated: false
-
-  field :effective_balance, 3, type: :uint64, json_name: "effectiveBalance"
-  field :slashed, 4, type: :bool
-
-  field :activation_eligibility_epoch, 5,
-    type: :uint64,
-    json_name: "activationEligibilityEpoch",
-    deprecated: false
-
-  field :activation_epoch, 6, type: :uint64, json_name: "activationEpoch", deprecated: false
-  field :exit_epoch, 7, type: :uint64, json_name: "exitEpoch", deprecated: false
-  field :withdrawable_epoch, 8, type: :uint64, json_name: "withdrawableEpoch", deprecated: false
-
-  field :fully_withdrawn_epoch, 9,
-    type: :uint64,
-    json_name: "fullyWithdrawnEpoch",
-    deprecated: false
-end
-
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipation do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -457,7 +434,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :verified_only, 1, type: :bool, json_name: "verifiedOnly"
 end
@@ -477,6 +454,20 @@ defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest do
   field :recipients, 1,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer
+end
+
+defmodule Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
@@ -522,6 +513,10 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :PrepareBeaconProposer,
       Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest,
       Google.Protobuf.Empty
+
+  rpc :GetFeeRecipientByPubKey,
+      Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyRequest,
+      Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyResponse
 
   rpc :GetAttestationData,
       Ethereum.Eth.V1alpha1.AttestationDataRequest,

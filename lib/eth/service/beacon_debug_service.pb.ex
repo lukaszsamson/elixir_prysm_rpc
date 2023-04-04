@@ -11,6 +11,8 @@ defmodule Ethereum.Eth.Service.BeaconDebug.Service do
   rpc :GetBeaconStateSSZV2, Ethereum.Eth.V2.BeaconStateRequestV2, Ethereum.Eth.V2.SSZContainer
 
   rpc :ListForkChoiceHeadsV2, Google.Protobuf.Empty, Ethereum.Eth.V2.ForkChoiceHeadsResponse
+
+  rpc :GetForkChoice, Google.Protobuf.Empty, Ethereum.Eth.V1.ForkChoiceDump
 end
 
 defmodule Ethereum.Eth.Service.BeaconDebug.Stub do

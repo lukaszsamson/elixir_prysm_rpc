@@ -136,4 +136,5 @@ defmodule Ethereum.Eth.V1.SyncInfo do
   field :sync_distance, 2, type: :uint64, json_name: "syncDistance", deprecated: false
   field :is_syncing, 3, type: :bool, json_name: "isSyncing"
   field :is_optimistic, 4, type: :bool, json_name: "isOptimistic"
+  field :el_offline, 5, type: :bool, json_name: "elOffline"
 end

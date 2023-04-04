@@ -114,3 +114,26 @@ defmodule Ethereum.Eth.V2.SignedContributionAndProof do
   field :message, 1, type: Ethereum.Eth.V2.ContributionAndProof
   field :signature, 4, type: :bytes, deprecated: false
 end
+
+defmodule Ethereum.Eth.V2.GetLivenessRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :epoch, 1, type: :uint64, deprecated: false
+  field :index, 2, repeated: true, type: :uint64, deprecated: false
+end
+
+defmodule Ethereum.Eth.V2.GetLivenessResponse.Liveness do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :index, 1, type: :uint64, deprecated: false
+  field :is_live, 2, type: :bool, json_name: "isLive"
+end
+
+defmodule Ethereum.Eth.V2.GetLivenessResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :data, 1, repeated: true, type: Ethereum.Eth.V2.GetLivenessResponse.Liveness
+end
