@@ -126,6 +126,16 @@ defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
     type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockCapella,
     json_name: "blindedCapellaBlock",
     oneof: 0
+
+  field :deneb_block, 9,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockDeneb,
+    json_name: "denebBlock",
+    oneof: 0
+
+  field :blinded_deneb_block, 10,
+    type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockDeneb,
+    json_name: "blindedDenebBlock",
+    oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.ChainHead do
@@ -367,7 +377,7 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :current_effective_balances, 1,
     repeated: true,

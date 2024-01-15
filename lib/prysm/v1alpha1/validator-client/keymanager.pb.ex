@@ -8,16 +8,6 @@ defmodule Ethereum.Validator.Accounts.V2.SignResponse.Status do
   field :FAILED, 3
 end
 
-defmodule Ethereum.Validator.Accounts.V2.ListPublicKeysResponse do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :validating_public_keys, 2,
-    repeated: true,
-    type: :bytes,
-    json_name: "validatingPublicKeys"
-end
-
 defmodule Ethereum.Validator.Accounts.V2.SignRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -82,6 +72,16 @@ defmodule Ethereum.Validator.Accounts.V2.SignRequest do
     json_name: "blindedBlockCapella",
     oneof: 0
 
+  field :block_deneb, 116,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockDeneb,
+    json_name: "blockDeneb",
+    oneof: 0
+
+  field :blinded_block_deneb, 117,
+    type: Ethereum.Eth.V1alpha1.BlindedBeaconBlockDeneb,
+    json_name: "blindedBlockDeneb",
+    oneof: 0
+
   field :signing_slot, 6, type: :uint64, json_name: "signingSlot", deprecated: false
 end
 
@@ -93,22 +93,42 @@ defmodule Ethereum.Validator.Accounts.V2.SignResponse do
   field :status, 2, type: Ethereum.Validator.Accounts.V2.SignResponse.Status, enum: true
 end
 
-defmodule Ethereum.Validator.Accounts.V2.RemoteSigner.Service do
+defmodule Ethereum.Validator.Accounts.V2.ProposerOptionPayload do
   @moduledoc false
-  use GRPC.Service,
-    name: "ethereum.validator.accounts.v2.RemoteSigner",
-    protoc_gen_elixir_version: "0.11.0"
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
-  rpc :ListValidatingPublicKeys,
-      Google.Protobuf.Empty,
-      Ethereum.Validator.Accounts.V2.ListPublicKeysResponse
-
-  rpc :Sign,
-      Ethereum.Validator.Accounts.V2.SignRequest,
-      Ethereum.Validator.Accounts.V2.SignResponse
+  field :fee_recipient, 1, type: :string, json_name: "feeRecipient"
+  field :builder, 2, type: Ethereum.Validator.Accounts.V2.BuilderConfig
 end
 
-defmodule Ethereum.Validator.Accounts.V2.RemoteSigner.Stub do
+defmodule Ethereum.Validator.Accounts.V2.BuilderConfig do
   @moduledoc false
-  use GRPC.Stub, service: Ethereum.Validator.Accounts.V2.RemoteSigner.Service
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :enabled, 1, type: :bool
+  field :gas_limit, 2, type: :uint64, json_name: "gasLimit", deprecated: false
+  field :relays, 3, repeated: true, type: :string
+end
+
+defmodule Ethereum.Validator.Accounts.V2.ProposerSettingsPayload.ProposerConfigEntry do
+  @moduledoc false
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :key, 1, type: :string
+  field :value, 2, type: Ethereum.Validator.Accounts.V2.ProposerOptionPayload
+end
+
+defmodule Ethereum.Validator.Accounts.V2.ProposerSettingsPayload do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :proposer_config, 1,
+    repeated: true,
+    type: Ethereum.Validator.Accounts.V2.ProposerSettingsPayload.ProposerConfigEntry,
+    json_name: "proposerConfig",
+    map: true
+
+  field :default_config, 2,
+    type: Ethereum.Validator.Accounts.V2.ProposerOptionPayload,
+    json_name: "defaultConfig"
 end

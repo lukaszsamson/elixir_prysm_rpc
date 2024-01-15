@@ -43,3 +43,11 @@ defmodule Ethereum.Eth.V1alpha1.MetaDataV1 do
   field :attnets, 2, type: :bytes, deprecated: false
   field :syncnets, 3, type: :bytes, deprecated: false
 end
+
+defmodule Ethereum.Eth.V1alpha1.BlobSidecarsByRangeRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :start_slot, 1, type: :uint64, json_name: "startSlot", deprecated: false
+  field :count, 2, type: :uint64
+end

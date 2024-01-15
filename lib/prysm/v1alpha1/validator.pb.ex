@@ -44,6 +44,13 @@ defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexResponse do
   field :indices, 1, repeated: true, type: :uint64, deprecated: false
 end
 
+defmodule Ethereum.Eth.V1alpha1.StreamSlotsResponse do
+  @moduledoc false
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :slot, 1, type: :uint64, deprecated: false
+end
+
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   @moduledoc false
   use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -68,6 +75,11 @@ defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   field :capella_block, 4,
     type: Ethereum.Eth.V1alpha1.SignedBeaconBlockCapella,
     json_name: "capellaBlock",
+    oneof: 0
+
+  field :deneb_block, 5,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockDeneb,
+    json_name: "denebBlock",
     oneof: 0
 end
 
@@ -242,6 +254,10 @@ defmodule Ethereum.Eth.V1alpha1.BlockRequest do
   field :randao_reveal, 2, type: :bytes, json_name: "randaoReveal", deprecated: false
   field :graffiti, 3, type: :bytes, deprecated: false
   field :skip_mev_boost, 4, type: :bool, json_name: "skipMevBoost"
+
+  field :builder_boost_factor, 5,
+    type: Google.Protobuf.UInt64Value,
+    json_name: "builderBoostFactor"
 end
 
 defmodule Ethereum.Eth.V1alpha1.ProposeResponse do
@@ -432,6 +448,13 @@ defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse do
     type: Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse
 end
 
+defmodule Ethereum.Eth.V1alpha1.StreamSlotsRequest do
+  @moduledoc false
+  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :verified_only, 1, type: :bool, json_name: "verifiedOnly"
+end
+
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
   @moduledoc false
   use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -468,6 +491,32 @@ defmodule Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyResponse do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.AssignValidatorToSubnetRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
+  field :status, 2, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
+end
+
+defmodule Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :msgs, 1, repeated: true, type: Ethereum.Eth.V1alpha1.SyncCommitteeMessage
+  field :slot, 2, type: :uint64, deprecated: false
+  field :subnet_id, 3, type: :uint64, json_name: "subnetId"
+  field :block_root, 4, type: :bytes, json_name: "blockRoot", deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :aggregated_sig, 1, type: :bytes, json_name: "aggregatedSig"
+  field :bits, 2, type: :bytes
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
@@ -562,6 +611,10 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
       Ethereum.Eth.V1alpha1.SignedContributionAndProof,
       Google.Protobuf.Empty
 
+  rpc :StreamSlots,
+      Ethereum.Eth.V1alpha1.StreamSlotsRequest,
+      stream(Ethereum.Eth.V1alpha1.StreamSlotsResponse)
+
   rpc :StreamBlocksAltair,
       Ethereum.Eth.V1alpha1.StreamBlocksRequest,
       stream(Ethereum.Eth.V1alpha1.StreamBlocksResponse)
@@ -569,6 +622,14 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   rpc :SubmitValidatorRegistrations,
       Ethereum.Eth.V1alpha1.SignedValidatorRegistrationsV1,
       Google.Protobuf.Empty
+
+  rpc :AssignValidatorToSubnet,
+      Ethereum.Eth.V1alpha1.AssignValidatorToSubnetRequest,
+      Google.Protobuf.Empty
+
+  rpc :AggregatedSigAndAggregationBits,
+      Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsRequest,
+      Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsResponse
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Stub do

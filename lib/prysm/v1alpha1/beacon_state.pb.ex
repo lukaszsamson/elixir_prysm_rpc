@@ -503,6 +503,123 @@ defmodule Ethereum.Eth.V1alpha1.BeaconStateCapella do
     deprecated: false
 end
 
+defmodule Ethereum.Eth.V1alpha1.BeaconStateDeneb do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :genesis_time, 1001, type: :uint64, json_name: "genesisTime"
+
+  field :genesis_validators_root, 1002,
+    type: :bytes,
+    json_name: "genesisValidatorsRoot",
+    deprecated: false
+
+  field :slot, 1003, type: :uint64, deprecated: false
+  field :fork, 1004, type: Ethereum.Eth.V1alpha1.Fork
+
+  field :latest_block_header, 2001,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockHeader,
+    json_name: "latestBlockHeader"
+
+  field :block_roots, 2002,
+    repeated: true,
+    type: :bytes,
+    json_name: "blockRoots",
+    deprecated: false
+
+  field :state_roots, 2003,
+    repeated: true,
+    type: :bytes,
+    json_name: "stateRoots",
+    deprecated: false
+
+  field :historical_roots, 2004,
+    repeated: true,
+    type: :bytes,
+    json_name: "historicalRoots",
+    deprecated: false
+
+  field :eth1_data, 3001, type: Ethereum.Eth.V1alpha1.Eth1Data, json_name: "eth1Data"
+
+  field :eth1_data_votes, 3002,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.Eth1Data,
+    json_name: "eth1DataVotes",
+    deprecated: false
+
+  field :eth1_deposit_index, 3003, type: :uint64, json_name: "eth1DepositIndex"
+
+  field :validators, 4001,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.Validator,
+    deprecated: false
+
+  field :balances, 4002, repeated: true, type: :uint64, deprecated: false
+
+  field :randao_mixes, 5001,
+    repeated: true,
+    type: :bytes,
+    json_name: "randaoMixes",
+    deprecated: false
+
+  field :slashings, 6001, repeated: true, type: :uint64, deprecated: false
+
+  field :previous_epoch_participation, 7001,
+    type: :bytes,
+    json_name: "previousEpochParticipation",
+    deprecated: false
+
+  field :current_epoch_participation, 7002,
+    type: :bytes,
+    json_name: "currentEpochParticipation",
+    deprecated: false
+
+  field :justification_bits, 8001, type: :bytes, json_name: "justificationBits", deprecated: false
+
+  field :previous_justified_checkpoint, 8002,
+    type: Ethereum.Eth.V1alpha1.Checkpoint,
+    json_name: "previousJustifiedCheckpoint"
+
+  field :current_justified_checkpoint, 8003,
+    type: Ethereum.Eth.V1alpha1.Checkpoint,
+    json_name: "currentJustifiedCheckpoint"
+
+  field :finalized_checkpoint, 8004,
+    type: Ethereum.Eth.V1alpha1.Checkpoint,
+    json_name: "finalizedCheckpoint"
+
+  field :inactivity_scores, 9001,
+    repeated: true,
+    type: :uint64,
+    json_name: "inactivityScores",
+    deprecated: false
+
+  field :current_sync_committee, 9002,
+    type: Ethereum.Eth.V1alpha1.SyncCommittee,
+    json_name: "currentSyncCommittee"
+
+  field :next_sync_committee, 9003,
+    type: Ethereum.Eth.V1alpha1.SyncCommittee,
+    json_name: "nextSyncCommittee"
+
+  field :latest_execution_payload_header, 10001,
+    type: Ethereum.Engine.V1.ExecutionPayloadHeaderDeneb,
+    json_name: "latestExecutionPayloadHeader"
+
+  field :next_withdrawal_index, 11001, type: :uint64, json_name: "nextWithdrawalIndex"
+
+  field :next_withdrawal_validator_index, 11002,
+    type: :uint64,
+    json_name: "nextWithdrawalValidatorIndex",
+    deprecated: false
+
+  field :historical_summaries, 11003,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.HistoricalSummary,
+    json_name: "historicalSummaries",
+    deprecated: false
+end
+
 defmodule Ethereum.Eth.V1alpha1.PowBlock do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3

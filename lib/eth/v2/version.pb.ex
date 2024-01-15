@@ -6,4 +6,5 @@ defmodule Ethereum.Eth.V2.Version do
   field :ALTAIR, 1
   field :BELLATRIX, 2
   field :CAPELLA, 3
+  field :DENEB, 4
 end

@@ -17,6 +17,21 @@ defmodule Ethereum.Eth.V1alpha1.ETH1ChainData do
     repeated: true,
     type: Ethereum.Eth.V1alpha1.DepositContainer,
     json_name: "depositContainers"
+
+  field :deposit_snapshot, 6,
+    type: Ethereum.Eth.V1alpha1.DepositSnapshot,
+    json_name: "depositSnapshot"
+end
+
+defmodule Ethereum.Eth.V1alpha1.DepositSnapshot do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :finalized, 1, repeated: true, type: :bytes
+  field :deposit_root, 2, type: :bytes, json_name: "depositRoot"
+  field :deposit_count, 3, type: :uint64, json_name: "depositCount"
+  field :execution_hash, 4, type: :bytes, json_name: "executionHash"
+  field :execution_depth, 5, type: :uint64, json_name: "executionDepth"
 end
 
 defmodule Ethereum.Eth.V1alpha1.LatestETH1Data do

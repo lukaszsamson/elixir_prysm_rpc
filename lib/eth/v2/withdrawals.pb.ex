@@ -14,10 +14,3 @@ defmodule Ethereum.Eth.V2.SignedBLSToExecutionChange do
   field :message, 1, type: Ethereum.Eth.V2.BLSToExecutionChange
   field :signature, 2, type: :bytes, deprecated: false
 end
-
-defmodule Ethereum.Eth.V2.SubmitBLSToExecutionChangesRequest do
-  @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :changes, 1, repeated: true, type: Ethereum.Eth.V2.SignedBLSToExecutionChange
-end
