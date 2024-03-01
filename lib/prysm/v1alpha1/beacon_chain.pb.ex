@@ -1,20 +1,3 @@
-defmodule Ethereum.Eth.V1alpha1.SetAction do
-  @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :ADD_VALIDATOR_KEYS, 0
-  field :REMOVE_VALIDATOR_KEYS, 1
-  field :SET_VALIDATOR_KEYS, 2
-end
-
-defmodule Ethereum.Eth.V1alpha1.ValidatorChangeSet do
-  @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
-
-  field :action, 1, type: Ethereum.Eth.V1alpha1.SetAction, enum: true
-  field :public_keys, 2, repeated: true, type: :bytes, json_name: "publicKeys"
-end
-
 defmodule Ethereum.Eth.V1alpha1.ListIndexedAttestationsRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -638,12 +621,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
       Ethereum.Eth.V1alpha1.ListIndexedAttestationsRequest,
       Ethereum.Eth.V1alpha1.ListIndexedAttestationsResponse
 
-  rpc :StreamAttestations, Google.Protobuf.Empty, stream(Ethereum.Eth.V1alpha1.Attestation)
-
-  rpc :StreamIndexedAttestations,
-      Google.Protobuf.Empty,
-      stream(Ethereum.Eth.V1alpha1.IndexedAttestation)
-
   rpc :AttestationPool,
       Ethereum.Eth.V1alpha1.AttestationPoolRequest,
       Ethereum.Eth.V1alpha1.AttestationPoolResponse
@@ -651,12 +628,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   rpc :ListBeaconBlocks,
       Ethereum.Eth.V1alpha1.ListBlocksRequest,
       Ethereum.Eth.V1alpha1.ListBeaconBlocksResponse
-
-  rpc :StreamBlocks,
-      Ethereum.Eth.V1alpha1.StreamBlocksRequest,
-      stream(Ethereum.Eth.V1alpha1.SignedBeaconBlock)
-
-  rpc :StreamChainHead, Google.Protobuf.Empty, stream(Ethereum.Eth.V1alpha1.ChainHead)
 
   rpc :GetChainHead, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ChainHead
 
@@ -693,10 +664,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
       Ethereum.Eth.V1alpha1.ValidatorParticipationResponse
 
   rpc :GetBeaconConfig, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.BeaconConfig
-
-  rpc :StreamValidatorsInfo,
-      stream(Ethereum.Eth.V1alpha1.ValidatorChangeSet),
-      stream(Ethereum.Eth.V1alpha1.ValidatorInfo)
 
   rpc :SubmitAttesterSlashing,
       Ethereum.Eth.V1alpha1.AttesterSlashing,

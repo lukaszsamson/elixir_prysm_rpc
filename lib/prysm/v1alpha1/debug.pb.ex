@@ -147,10 +147,6 @@ defmodule Ethereum.Eth.V1alpha1.Debug.Service do
   rpc :ListPeers, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.DebugPeerResponses
 
   rpc :GetPeer, Ethereum.Eth.V1alpha1.PeerRequest, Ethereum.Eth.V1alpha1.DebugPeerResponse
-
-  rpc :GetInclusionSlot,
-      Ethereum.Eth.V1alpha1.InclusionSlotRequest,
-      Ethereum.Eth.V1alpha1.InclusionSlotResponse
 end
 
 defmodule Ethereum.Eth.V1alpha1.Debug.Stub do

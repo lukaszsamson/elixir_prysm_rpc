@@ -230,11 +230,6 @@ defmodule Ethereum.Eth.V1alpha1.DutiesResponse do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
-  field :duties, 1,
-    repeated: true,
-    type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty,
-    deprecated: true
-
   field :current_epoch_duties, 2,
     repeated: true,
     type: Ethereum.Eth.V1alpha1.DutiesResponse.Duty,
@@ -526,10 +521,6 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
     protoc_gen_elixir_version: "0.11.0"
 
   rpc :GetDuties, Ethereum.Eth.V1alpha1.DutiesRequest, Ethereum.Eth.V1alpha1.DutiesResponse
-
-  rpc :StreamDuties,
-      Ethereum.Eth.V1alpha1.DutiesRequest,
-      stream(Ethereum.Eth.V1alpha1.DutiesResponse)
 
   rpc :DomainData, Ethereum.Eth.V1alpha1.DomainRequest, Ethereum.Eth.V1alpha1.DomainResponse
 

@@ -28,7 +28,6 @@ defmodule Ethereum.Eth.V1alpha1.GenericSignedBeaconBlock do
     oneof: 0
 
   field :is_blinded, 100, type: :bool, json_name: "isBlinded"
-  field :payload_value, 101, type: :uint64, json_name: "payloadValue"
 end
 
 defmodule Ethereum.Eth.V1alpha1.GenericBeaconBlock do
@@ -61,7 +60,7 @@ defmodule Ethereum.Eth.V1alpha1.GenericBeaconBlock do
     oneof: 0
 
   field :is_blinded, 100, type: :bool, json_name: "isBlinded"
-  field :payload_value, 101, type: :uint64, json_name: "payloadValue"
+  field :payload_value, 101, type: :string, json_name: "payloadValue"
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconBlock do
