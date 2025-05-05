@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1.ValidatorStatus do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :PENDING_INITIALIZED, 0
   field :PENDING_QUEUED, 1
@@ -19,7 +20,8 @@ end
 
 defmodule Ethereum.Eth.V1.Validator do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :pubkey, 1, type: :bytes, deprecated: false
 
@@ -43,7 +45,8 @@ end
 
 defmodule Ethereum.Eth.V1.ProduceBlockRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :randao_reveal, 2, type: :bytes, json_name: "randaoReveal", deprecated: false
@@ -52,7 +55,8 @@ end
 
 defmodule Ethereum.Eth.V1.ProduceBlockResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :data, 1, type: Ethereum.Eth.V1.BeaconBlock
 end

@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1.BeaconBlock do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :proposer_index, 2, type: :uint64, json_name: "proposerIndex", deprecated: false
@@ -11,7 +12,8 @@ end
 
 defmodule Ethereum.Eth.V1.SignedBeaconBlock do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block, 1, type: Ethereum.Eth.V1.BeaconBlock
   field :signature, 2, type: :bytes, deprecated: false
@@ -19,7 +21,8 @@ end
 
 defmodule Ethereum.Eth.V1.BeaconBlockBody do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :randao_reveal, 1, type: :bytes, json_name: "randaoReveal", deprecated: false
   field :eth1_data, 2, type: Ethereum.Eth.V1.Eth1Data, json_name: "eth1Data"
@@ -49,7 +52,8 @@ end
 
 defmodule Ethereum.Eth.V1.ProposerSlashing do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :signed_header_1, 2,
     type: Ethereum.Eth.V1.SignedBeaconBlockHeader,
@@ -62,7 +66,8 @@ end
 
 defmodule Ethereum.Eth.V1.AttesterSlashing do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attestation_1, 1, type: Ethereum.Eth.V1.IndexedAttestation, json_name: "attestation1"
   field :attestation_2, 2, type: Ethereum.Eth.V1.IndexedAttestation, json_name: "attestation2"
@@ -70,7 +75,8 @@ end
 
 defmodule Ethereum.Eth.V1.Deposit.Data do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :pubkey, 1, type: :bytes, deprecated: false
 
@@ -85,7 +91,8 @@ end
 
 defmodule Ethereum.Eth.V1.Deposit do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :proof, 1, repeated: true, type: :bytes, deprecated: false
   field :data, 2, type: Ethereum.Eth.V1.Deposit.Data
@@ -93,7 +100,8 @@ end
 
 defmodule Ethereum.Eth.V1.VoluntaryExit do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :validator_index, 2, type: :uint64, json_name: "validatorIndex", deprecated: false
@@ -101,7 +109,8 @@ end
 
 defmodule Ethereum.Eth.V1.SignedVoluntaryExit do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :message, 1, type: Ethereum.Eth.V1.VoluntaryExit
   field :signature, 2, type: :bytes, deprecated: false
@@ -109,7 +118,8 @@ end
 
 defmodule Ethereum.Eth.V1.Eth1Data do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :deposit_root, 1, type: :bytes, json_name: "depositRoot", deprecated: false
   field :deposit_count, 2, type: :uint64, json_name: "depositCount"
@@ -118,7 +128,8 @@ end
 
 defmodule Ethereum.Eth.V1.BeaconBlockHeader do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :proposer_index, 2, type: :uint64, json_name: "proposerIndex", deprecated: false
@@ -129,7 +140,8 @@ end
 
 defmodule Ethereum.Eth.V1.SignedBeaconBlockHeader do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :message, 1, type: Ethereum.Eth.V1.BeaconBlockHeader
   field :signature, 2, type: :bytes, deprecated: false
@@ -137,7 +149,8 @@ end
 
 defmodule Ethereum.Eth.V1.IndexedAttestation do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attesting_indices, 1,
     repeated: true,
@@ -151,7 +164,8 @@ end
 
 defmodule Ethereum.Eth.V1.SyncAggregate do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :sync_committee_bits, 1, type: :bytes, json_name: "syncCommitteeBits", deprecated: false
 

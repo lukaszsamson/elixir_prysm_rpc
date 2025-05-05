@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1alpha1.PeerDirection do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :UNKNOWN, 0
   field :INBOUND, 1
@@ -9,7 +10,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ConnectionState do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :DISCONNECTED, 0
   field :DISCONNECTING, 1
@@ -17,16 +19,26 @@ defmodule Ethereum.Eth.V1alpha1.ConnectionState do
   field :CONNECTING, 3
 end
 
+defmodule Ethereum.Eth.V1alpha1.HealthRequest do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :syncing_status, 1, type: :uint64, json_name: "syncingStatus"
+end
+
 defmodule Ethereum.Eth.V1alpha1.SyncStatus do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :syncing, 1, type: :bool
 end
 
 defmodule Ethereum.Eth.V1alpha1.Genesis do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :genesis_time, 1, type: Google.Protobuf.Timestamp, json_name: "genesisTime"
   field :deposit_contract_address, 2, type: :bytes, json_name: "depositContractAddress"
@@ -39,7 +51,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Version do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :version, 1, type: :string
   field :metadata, 2, type: :string
@@ -47,28 +60,32 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ImplementedServices do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :services, 1, repeated: true, type: :string
 end
 
 defmodule Ethereum.Eth.V1alpha1.PeerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :peer_id, 1, type: :string, json_name: "peerId"
 end
 
 defmodule Ethereum.Eth.V1alpha1.Peers do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :peers, 1, repeated: true, type: Ethereum.Eth.V1alpha1.Peer
 end
 
 defmodule Ethereum.Eth.V1alpha1.Peer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :address, 1, type: :string
   field :direction, 2, type: Ethereum.Eth.V1alpha1.PeerDirection, enum: true
@@ -84,7 +101,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.HostData do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :addresses, 1, repeated: true, type: :string
   field :peer_id, 2, type: :string, json_name: "peerId"
@@ -93,7 +111,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ETH1ConnectionStatus do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :current_address, 1, type: :string, json_name: "currentAddress"
   field :current_connection_error, 2, type: :string, json_name: "currentConnectionError"
@@ -103,13 +122,16 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Node.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Node", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "ethereum.eth.v1alpha1.Node", protoc_gen_elixir_version: "0.13.0"
 
   rpc :GetSyncStatus, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.SyncStatus
 
   rpc :GetGenesis, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Genesis
 
   rpc :GetVersion, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.Version
+
+  rpc :GetHealth, Ethereum.Eth.V1alpha1.HealthRequest, Google.Protobuf.Empty
 
   rpc :ListImplementedServices, Google.Protobuf.Empty, Ethereum.Eth.V1alpha1.ImplementedServices
 
@@ -124,5 +146,6 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Node.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Node.Service
 end

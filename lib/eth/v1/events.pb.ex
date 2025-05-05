@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1.EventHead do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :block, 2, type: :bytes, deprecated: false
@@ -22,7 +23,8 @@ end
 
 defmodule Ethereum.Eth.V1.EventBlock do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :block, 2, type: :bytes, deprecated: false
@@ -31,7 +33,8 @@ end
 
 defmodule Ethereum.Eth.V1.EventChainReorg do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :depth, 2, type: :uint64
@@ -45,7 +48,8 @@ end
 
 defmodule Ethereum.Eth.V1.EventFinalizedCheckpoint do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block, 1, type: :bytes, deprecated: false
   field :state, 2, type: :bytes, deprecated: false

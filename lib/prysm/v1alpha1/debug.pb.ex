@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1alpha1.LoggingLevelRequest.Level do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :INFO, 0
   field :DEBUG, 1
@@ -9,7 +10,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.InclusionSlotRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :id, 1, type: :uint64
   field :slot, 2, type: :uint64, deprecated: false
@@ -17,14 +19,16 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.InclusionSlotResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 2, type: :uint64, deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconStateRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -34,35 +38,40 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BlockRequestByRoot do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block_root, 1, type: :bytes, json_name: "blockRoot"
 end
 
 defmodule Ethereum.Eth.V1alpha1.SSZResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :encoded, 1, type: :bytes
 end
 
 defmodule Ethereum.Eth.V1alpha1.LoggingLevelRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :level, 1, type: Ethereum.Eth.V1alpha1.LoggingLevelRequest.Level, enum: true
 end
 
 defmodule Ethereum.Eth.V1alpha1.DebugPeerResponses do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :responses, 1, repeated: true, type: Ethereum.Eth.V1alpha1.DebugPeerResponse
 end
 
 defmodule Ethereum.Eth.V1alpha1.DebugPeerResponse.PeerInfo do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :metadataV0, 1, type: Ethereum.Eth.V1alpha1.MetaDataV0
   field :metadataV1, 2, type: Ethereum.Eth.V1alpha1.MetaDataV1
@@ -75,7 +84,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DebugPeerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :listening_addresses, 1, repeated: true, type: :string, json_name: "listeningAddresses"
   field :direction, 2, type: Ethereum.Eth.V1alpha1.PeerDirection, enum: true
@@ -99,7 +109,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ScoreInfo.TopicScoresEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :key, 1, type: :string
   field :value, 2, type: Ethereum.Eth.V1alpha1.TopicScoreSnapshot
@@ -107,7 +118,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ScoreInfo do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :overall_score, 1, type: :float, json_name: "overallScore"
   field :processed_blocks, 2, type: :uint64, json_name: "processedBlocks"
@@ -126,7 +138,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.TopicScoreSnapshot do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :time_in_mesh, 1, type: :uint64, json_name: "timeInMesh"
   field :first_message_deliveries, 2, type: :float, json_name: "firstMessageDeliveries"
@@ -136,7 +149,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Debug.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.Debug", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "ethereum.eth.v1alpha1.Debug", protoc_gen_elixir_version: "0.13.0"
 
   rpc :GetBeaconState, Ethereum.Eth.V1alpha1.BeaconStateRequest, Ethereum.Eth.V1alpha1.SSZResponse
 
@@ -151,5 +165,6 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Debug.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Ethereum.Eth.V1alpha1.Debug.Service
 end

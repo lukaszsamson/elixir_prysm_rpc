@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1alpha1.ETH1ChainData do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :current_eth1_data, 1,
     type: Ethereum.Eth.V1alpha1.LatestETH1Data,
@@ -25,7 +26,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DepositSnapshot do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :finalized, 1, repeated: true, type: :bytes, deprecated: false
   field :deposit_root, 2, type: :bytes, json_name: "depositRoot", deprecated: false
@@ -36,7 +38,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.LatestETH1Data do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block_height, 2, type: :uint64, json_name: "blockHeight"
   field :block_time, 3, type: :uint64, json_name: "blockTime"
@@ -46,7 +49,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ChainStartData do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :chainstarted, 1, type: :bool
   field :genesis_time, 2, type: :uint64, json_name: "genesisTime"
@@ -61,7 +65,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SparseMerkleTrie do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :depth, 1, type: :uint64
   field :layers, 2, repeated: true, type: Ethereum.Eth.V1alpha1.TrieLayer
@@ -70,14 +75,16 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.TrieLayer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :layer, 1, repeated: true, type: :bytes
 end
 
 defmodule Ethereum.Eth.V1alpha1.DepositContainer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :index, 1, type: :int64
   field :eth1_block_height, 2, type: :uint64, json_name: "eth1BlockHeight"

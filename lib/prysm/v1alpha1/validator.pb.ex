@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatus do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :UNKNOWN_STATUS, 0
   field :DEPOSITED, 1
@@ -15,14 +16,16 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SyncMessageBlockRootResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :root, 1, type: :bytes, deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
   field :slot, 2, type: :uint64, deprecated: false
@@ -30,7 +33,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SyncCommitteeContributionRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :public_key, 2, type: :bytes, json_name: "publicKey", deprecated: false
@@ -39,21 +43,24 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SyncSubcommitteeIndexResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :indices, 1, repeated: true, type: :uint64, deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.StreamSlotsResponse do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :block, 0
 
@@ -81,11 +88,22 @@ defmodule Ethereum.Eth.V1alpha1.StreamBlocksResponse do
     type: Ethereum.Eth.V1alpha1.SignedBeaconBlockDeneb,
     json_name: "denebBlock",
     oneof: 0
+
+  field :electra_block, 6,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockElectra,
+    json_name: "electraBlock",
+    oneof: 0
+
+  field :fulu_block, 7,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockFulu,
+    json_name: "fuluBlock",
+    oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.DomainRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :domain, 2, type: :bytes
@@ -93,21 +111,24 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DomainResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :signature_domain, 1, type: :bytes, json_name: "signatureDomain"
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationResponse.Status do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey"
   field :status, 2, type: Ethereum.Eth.V1alpha1.ValidatorStatusResponse
@@ -116,7 +137,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorActivationResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :statuses, 1,
     repeated: true,
@@ -125,7 +147,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ChainStartResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :started, 1, type: :bool
   field :genesis_time, 2, type: :uint64, json_name: "genesisTime"
@@ -138,7 +161,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SyncedResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :synced, 1, type: :bool
   field :genesis_time, 2, type: :uint64, json_name: "genesisTime"
@@ -146,28 +170,32 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorIndexRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorIndexResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :index, 1, type: :uint64, deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatusRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorStatusResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :status, 1, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
   field :eth1_deposit_block_number, 2, type: :uint64, json_name: "eth1DepositBlockNumber"
@@ -183,7 +211,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.MultipleValidatorStatusRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
   field :indices, 2, repeated: true, type: :int64
@@ -191,7 +220,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.MultipleValidatorStatusResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
   field :statuses, 2, repeated: true, type: Ethereum.Eth.V1alpha1.ValidatorStatusResponse
@@ -200,7 +230,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DutiesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :public_keys, 2, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: false
@@ -208,7 +239,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DutiesResponse.Duty do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :committee, 1, repeated: true, type: :uint64, deprecated: false
   field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
@@ -224,11 +256,13 @@ defmodule Ethereum.Eth.V1alpha1.DutiesResponse.Duty do
   field :status, 6, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
   field :validator_index, 7, type: :uint64, json_name: "validatorIndex", deprecated: false
   field :is_sync_committee, 8, type: :bool, json_name: "isSyncCommittee"
+  field :committees_at_slot, 9, type: :uint64, json_name: "committeesAtSlot"
 end
 
 defmodule Ethereum.Eth.V1alpha1.DutiesResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :current_epoch_duties, 2,
     repeated: true,
@@ -243,7 +277,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BlockRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :randao_reveal, 2, type: :bytes, json_name: "randaoReveal", deprecated: false
@@ -257,21 +292,24 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ProposeResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block_root, 1, type: :bytes, json_name: "blockRoot", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.ProposeExitResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :exit_root, 1, type: :bytes, json_name: "exitRoot", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.AttestationDataRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
@@ -279,7 +317,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AttestResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attestation_data_root, 1,
     type: :bytes,
@@ -289,7 +328,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AggregateSelectionRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slot, 1, type: :uint64, deprecated: false
   field :committee_index, 2, type: :uint64, json_name: "committeeIndex", deprecated: false
@@ -299,25 +339,48 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AggregateSelectionResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :aggregate_and_proof, 1,
     type: Ethereum.Eth.V1alpha1.AggregateAttestationAndProof,
     json_name: "aggregateAndProof"
 end
 
+defmodule Ethereum.Eth.V1alpha1.AggregateSelectionElectraResponse do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :aggregate_and_proof, 1,
+    type: Ethereum.Eth.V1alpha1.AggregateAttestationAndProofElectra,
+    json_name: "aggregateAndProof"
+end
+
 defmodule Ethereum.Eth.V1alpha1.SignedAggregateSubmitRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :signed_aggregate_and_proof, 1,
     type: Ethereum.Eth.V1alpha1.SignedAggregateAttestationAndProof,
     json_name: "signedAggregateAndProof"
 end
 
+defmodule Ethereum.Eth.V1alpha1.SignedAggregateSubmitElectraRequest do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :signed_aggregate_and_proof, 1,
+    type: Ethereum.Eth.V1alpha1.SignedAggregateAttestationAndProofElectra,
+    json_name: "signedAggregateAndProof"
+end
+
 defmodule Ethereum.Eth.V1alpha1.SignedAggregateSubmitResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attestation_data_root, 1,
     type: :bytes,
@@ -327,7 +390,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.CommitteeSubnetsSubscribeRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slots, 1, repeated: true, type: :uint64, deprecated: false
 
@@ -342,7 +406,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Validator do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 
@@ -366,7 +431,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipation do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :global_participation_rate, 1,
     type: :float,
@@ -394,22 +460,20 @@ defmodule Ethereum.Eth.V1alpha1.ValidatorParticipation do
     json_name: "previousEpochHeadAttestingGwei"
 end
 
-defmodule Ethereum.Eth.V1alpha1.ValidatorInfo do
+defmodule Ethereum.Eth.V1alpha1.ValidatorIdentity do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
-  field :public_key, 1, type: :bytes, json_name: "publicKey"
-  field :index, 2, type: :uint64, deprecated: false
-  field :epoch, 3, type: :uint64, deprecated: false
-  field :status, 4, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
-  field :transition_timestamp, 5, type: :uint64, json_name: "transitionTimestamp"
-  field :balance, 6, type: :uint64
-  field :effective_balance, 7, type: :uint64, json_name: "effectiveBalance"
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :index, 1, type: :uint64, deprecated: false
+  field :pubkey, 2, type: :bytes, deprecated: false
+  field :activation_epoch, 3, type: :uint64, json_name: "activationEpoch", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerRequest.ValidatorRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
   field :epoch, 3, type: :uint64, deprecated: false
@@ -418,7 +482,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :validator_requests, 1,
     repeated: true,
@@ -428,7 +493,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse.ValidatorResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
   field :duplicate_exists, 2, type: :bool, json_name: "duplicateExists"
@@ -436,7 +502,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.DoppelGangerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :responses, 1,
     repeated: true,
@@ -445,21 +512,24 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.StreamSlotsRequest do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :verified_only, 1, type: :bool, json_name: "verifiedOnly"
 end
 
 defmodule Ethereum.Eth.V1alpha1.StreamBlocksRequest do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :verified_only, 1, type: :bool, json_name: "verifiedOnly"
 end
 
 defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest.FeeRecipientContainer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
   field :validator_index, 2, type: :uint64, json_name: "validatorIndex", deprecated: false
@@ -467,7 +537,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.PrepareBeaconProposerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :recipients, 1,
     repeated: true,
@@ -476,21 +547,24 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.FeeRecipientByPubKeyResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :fee_recipient, 1, type: :bytes, json_name: "feeRecipient", deprecated: false
 end
 
 defmodule Ethereum.Eth.V1alpha1.AssignValidatorToSubnetRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
   field :status, 2, type: Ethereum.Eth.V1alpha1.ValidatorStatus, enum: true
@@ -498,7 +572,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :msgs, 1, repeated: true, type: Ethereum.Eth.V1alpha1.SyncCommitteeMessage
   field :slot, 2, type: :uint64, deprecated: false
@@ -508,7 +583,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AggregatedSigAndAggregationBitsResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :aggregated_sig, 1, type: :bytes, json_name: "aggregatedSig"
   field :bits, 2, type: :bytes
@@ -516,9 +592,10 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
   @moduledoc false
+
   use GRPC.Service,
     name: "ethereum.eth.v1alpha1.BeaconNodeValidator",
-    protoc_gen_elixir_version: "0.11.0"
+    protoc_gen_elixir_version: "0.13.0"
 
   rpc :GetDuties, Ethereum.Eth.V1alpha1.DutiesRequest, Ethereum.Eth.V1alpha1.DutiesResponse
 
@@ -564,12 +641,24 @@ defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service do
 
   rpc :ProposeAttestation, Ethereum.Eth.V1alpha1.Attestation, Ethereum.Eth.V1alpha1.AttestResponse
 
+  rpc :ProposeAttestationElectra,
+      Ethereum.Eth.V1alpha1.SingleAttestation,
+      Ethereum.Eth.V1alpha1.AttestResponse
+
   rpc :SubmitAggregateSelectionProof,
       Ethereum.Eth.V1alpha1.AggregateSelectionRequest,
       Ethereum.Eth.V1alpha1.AggregateSelectionResponse
 
+  rpc :SubmitAggregateSelectionProofElectra,
+      Ethereum.Eth.V1alpha1.AggregateSelectionRequest,
+      Ethereum.Eth.V1alpha1.AggregateSelectionElectraResponse
+
   rpc :SubmitSignedAggregateSelectionProof,
       Ethereum.Eth.V1alpha1.SignedAggregateSubmitRequest,
+      Ethereum.Eth.V1alpha1.SignedAggregateSubmitResponse
+
+  rpc :SubmitSignedAggregateSelectionProofElectra,
+      Ethereum.Eth.V1alpha1.SignedAggregateSubmitElectraRequest,
       Ethereum.Eth.V1alpha1.SignedAggregateSubmitResponse
 
   rpc :ProposeExit,
@@ -625,5 +714,6 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconNodeValidator.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Ethereum.Eth.V1alpha1.BeaconNodeValidator.Service
 end

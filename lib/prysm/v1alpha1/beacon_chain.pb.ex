@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.V1alpha1.ListIndexedAttestationsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -12,7 +13,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListAttestationsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -24,16 +26,28 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListAttestationsResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attestations, 1, repeated: true, type: Ethereum.Eth.V1alpha1.Attestation
   field :next_page_token, 2, type: :string, json_name: "nextPageToken"
   field :total_size, 3, type: :int32, json_name: "totalSize"
 end
 
+defmodule Ethereum.Eth.V1alpha1.ListAttestationsElectraResponse do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :attestations, 1, repeated: true, type: Ethereum.Eth.V1alpha1.AttestationElectra
+  field :next_page_token, 2, type: :string, json_name: "nextPageToken"
+  field :total_size, 3, type: :int32, json_name: "totalSize"
+end
+
 defmodule Ethereum.Eth.V1alpha1.ListIndexedAttestationsResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :indexed_attestations, 1,
     repeated: true,
@@ -44,9 +58,24 @@ defmodule Ethereum.Eth.V1alpha1.ListIndexedAttestationsResponse do
   field :total_size, 3, type: :int32, json_name: "totalSize"
 end
 
+defmodule Ethereum.Eth.V1alpha1.ListIndexedAttestationsElectraResponse do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :indexed_attestations, 1,
+    repeated: true,
+    type: Ethereum.Eth.V1alpha1.IndexedAttestationElectra,
+    json_name: "indexedAttestations"
+
+  field :next_page_token, 2, type: :string, json_name: "nextPageToken"
+  field :total_size, 3, type: :int32, json_name: "totalSize"
+end
+
 defmodule Ethereum.Eth.V1alpha1.ListBlocksRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -60,7 +89,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListBeaconBlocksResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :block_containers, 1,
     repeated: true,
@@ -73,7 +103,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :block, 0
 
@@ -119,11 +150,32 @@ defmodule Ethereum.Eth.V1alpha1.BeaconBlockContainer do
     type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockDeneb,
     json_name: "blindedDenebBlock",
     oneof: 0
+
+  field :electra_block, 11,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockElectra,
+    json_name: "electraBlock",
+    oneof: 0
+
+  field :blinded_electra_block, 12,
+    type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockElectra,
+    json_name: "blindedElectraBlock",
+    oneof: 0
+
+  field :fulu_block, 13,
+    type: Ethereum.Eth.V1alpha1.SignedBeaconBlockFulu,
+    json_name: "fuluBlock",
+    oneof: 0
+
+  field :blinded_fulu_block, 14,
+    type: Ethereum.Eth.V1alpha1.SignedBlindedBeaconBlockFulu,
+    json_name: "blindedFuluBlock",
+    oneof: 0
 end
 
 defmodule Ethereum.Eth.V1alpha1.ChainHead do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :head_slot, 1, type: :uint64, json_name: "headSlot", deprecated: false
   field :head_epoch, 2, type: :uint64, json_name: "headEpoch", deprecated: false
@@ -155,7 +207,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListCommitteesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -165,7 +218,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconCommittees.CommitteeItem do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :validator_indices, 1,
     repeated: true,
@@ -176,14 +230,16 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconCommittees.CommitteesList do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :committees, 1, repeated: true, type: Ethereum.Eth.V1alpha1.BeaconCommittees.CommitteeItem
 end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconCommittees.CommitteesEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :key, 1, type: :uint64
   field :value, 2, type: Ethereum.Eth.V1alpha1.BeaconCommittees.CommitteesList
@@ -191,7 +247,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconCommittees do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
 
@@ -205,7 +262,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListValidatorBalancesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -219,7 +277,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorBalances.Balance do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_key, 1, type: :bytes, json_name: "publicKey", deprecated: false
   field :index, 2, type: :uint64, deprecated: false
@@ -229,7 +288,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorBalances do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :balances, 2, repeated: true, type: Ethereum.Eth.V1alpha1.ValidatorBalances.Balance
@@ -239,7 +299,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListValidatorsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -254,7 +315,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.GetValidatorRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -264,7 +326,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Validators.ValidatorContainer do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :index, 1, type: :uint64, deprecated: false
   field :validator, 2, type: Ethereum.Eth.V1alpha1.Validator
@@ -272,7 +335,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.Validators do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
 
@@ -287,7 +351,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.GetValidatorActiveSetChangesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -297,7 +362,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ActiveSetChanges do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
 
@@ -352,7 +418,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :public_keys, 1, repeated: true, type: :bytes, json_name: "publicKeys", deprecated: true
   field :indices, 2, repeated: true, type: :uint64, deprecated: false
@@ -360,7 +427,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorPerformanceResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :current_effective_balances, 1,
     repeated: true,
@@ -405,7 +473,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorQueue do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :churn_limit, 1, type: :uint64, json_name: "churnLimit"
 
@@ -436,7 +505,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ListValidatorAssignmentsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -450,7 +520,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorAssignments.CommitteeAssignment do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :beacon_committees, 1,
     repeated: true,
@@ -473,7 +544,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorAssignments do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
 
@@ -487,7 +559,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.GetValidatorParticipationRequest do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :query_filter, 0
 
@@ -497,7 +570,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.ValidatorParticipationResponse do
   @moduledoc false
-  use Protobuf, deprecated: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :finalized, 2, type: :bool
@@ -506,7 +580,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AttestationPoolRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :page_size, 1, type: :int32, json_name: "pageSize"
   field :page_token, 2, type: :string, json_name: "pageToken"
@@ -514,16 +589,28 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.AttestationPoolResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :attestations, 1, repeated: true, type: Ethereum.Eth.V1alpha1.Attestation
   field :next_page_token, 2, type: :string, json_name: "nextPageToken"
   field :total_size, 3, type: :int32, json_name: "totalSize"
 end
 
+defmodule Ethereum.Eth.V1alpha1.AttestationPoolElectraResponse do
+  @moduledoc false
+
+  use Protobuf, deprecated: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
+
+  field :attestations, 1, repeated: true, type: Ethereum.Eth.V1alpha1.AttestationElectra
+  field :next_page_token, 2, type: :string, json_name: "nextPageToken"
+  field :total_size, 3, type: :int32, json_name: "totalSize"
+end
+
 defmodule Ethereum.Eth.V1alpha1.BeaconConfig.ConfigEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :key, 1, type: :string
   field :value, 2, type: :string
@@ -531,7 +618,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconConfig do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :config, 1,
     repeated: true,
@@ -541,7 +629,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.SubmitSlashingResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :slashed_indices, 1,
     repeated: true,
@@ -552,7 +641,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.IndividualVotesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :public_keys, 2, repeated: true, type: :bytes, json_name: "publicKeys"
@@ -561,7 +651,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond.IndividualVote do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :epoch, 1, type: :uint64, deprecated: false
   field :public_key, 2, type: :bytes, json_name: "publicKey"
@@ -601,7 +692,8 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.IndividualVotesRespond do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :individual_votes, 1,
     repeated: true,
@@ -611,19 +703,32 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
   @moduledoc false
-  use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconChain", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "ethereum.eth.v1alpha1.BeaconChain", protoc_gen_elixir_version: "0.13.0"
 
   rpc :ListAttestations,
       Ethereum.Eth.V1alpha1.ListAttestationsRequest,
       Ethereum.Eth.V1alpha1.ListAttestationsResponse
 
+  rpc :ListAttestationsElectra,
+      Ethereum.Eth.V1alpha1.ListAttestationsRequest,
+      Ethereum.Eth.V1alpha1.ListAttestationsElectraResponse
+
   rpc :ListIndexedAttestations,
       Ethereum.Eth.V1alpha1.ListIndexedAttestationsRequest,
       Ethereum.Eth.V1alpha1.ListIndexedAttestationsResponse
 
+  rpc :ListIndexedAttestationsElectra,
+      Ethereum.Eth.V1alpha1.ListIndexedAttestationsRequest,
+      Ethereum.Eth.V1alpha1.ListIndexedAttestationsElectraResponse
+
   rpc :AttestationPool,
       Ethereum.Eth.V1alpha1.AttestationPoolRequest,
       Ethereum.Eth.V1alpha1.AttestationPoolResponse
+
+  rpc :AttestationPoolElectra,
+      Ethereum.Eth.V1alpha1.AttestationPoolRequest,
+      Ethereum.Eth.V1alpha1.AttestationPoolElectraResponse
 
   rpc :ListBeaconBlocks,
       Ethereum.Eth.V1alpha1.ListBlocksRequest,
@@ -669,6 +774,10 @@ defmodule Ethereum.Eth.V1alpha1.BeaconChain.Service do
       Ethereum.Eth.V1alpha1.AttesterSlashing,
       Ethereum.Eth.V1alpha1.SubmitSlashingResponse
 
+  rpc :SubmitAttesterSlashingElectra,
+      Ethereum.Eth.V1alpha1.AttesterSlashingElectra,
+      Ethereum.Eth.V1alpha1.SubmitSlashingResponse
+
   rpc :SubmitProposerSlashing,
       Ethereum.Eth.V1alpha1.ProposerSlashing,
       Ethereum.Eth.V1alpha1.SubmitSlashingResponse
@@ -680,5 +789,6 @@ end
 
 defmodule Ethereum.Eth.V1alpha1.BeaconChain.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Ethereum.Eth.V1alpha1.BeaconChain.Service
 end

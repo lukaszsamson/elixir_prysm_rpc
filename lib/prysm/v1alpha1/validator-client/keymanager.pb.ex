@@ -1,6 +1,7 @@
 defmodule Ethereum.Validator.Accounts.V2.SignResponse.Status do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :UNKNOWN, 0
   field :SUCCEEDED, 1
@@ -10,7 +11,8 @@ end
 
 defmodule Ethereum.Validator.Accounts.V2.SignRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   oneof :object, 0
 
@@ -82,12 +84,38 @@ defmodule Ethereum.Validator.Accounts.V2.SignRequest do
     json_name: "blindedBlockDeneb",
     oneof: 0
 
+  field :block_electra, 118,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockElectra,
+    json_name: "blockElectra",
+    oneof: 0
+
+  field :blinded_block_electra, 119,
+    type: Ethereum.Eth.V1alpha1.BlindedBeaconBlockElectra,
+    json_name: "blindedBlockElectra",
+    oneof: 0
+
+  field :aggregate_attestation_and_proof_electra, 120,
+    type: Ethereum.Eth.V1alpha1.AggregateAttestationAndProofElectra,
+    json_name: "aggregateAttestationAndProofElectra",
+    oneof: 0
+
+  field :block_fulu, 121,
+    type: Ethereum.Eth.V1alpha1.BeaconBlockElectra,
+    json_name: "blockFulu",
+    oneof: 0
+
+  field :blinded_block_fulu, 122,
+    type: Ethereum.Eth.V1alpha1.BlindedBeaconBlockFulu,
+    json_name: "blindedBlockFulu",
+    oneof: 0
+
   field :signing_slot, 6, type: :uint64, json_name: "signingSlot", deprecated: false
 end
 
 defmodule Ethereum.Validator.Accounts.V2.SignResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :signature, 1, type: :bytes
   field :status, 2, type: Ethereum.Validator.Accounts.V2.SignResponse.Status, enum: true
@@ -95,15 +123,18 @@ end
 
 defmodule Ethereum.Validator.Accounts.V2.ProposerOptionPayload do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :fee_recipient, 1, type: :string, json_name: "feeRecipient"
   field :builder, 2, type: Ethereum.Validator.Accounts.V2.BuilderConfig
+  field :graffiti, 3, proto3_optional: true, type: :string
 end
 
 defmodule Ethereum.Validator.Accounts.V2.BuilderConfig do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :enabled, 1, type: :bool
   field :gas_limit, 2, type: :uint64, json_name: "gasLimit", deprecated: false
@@ -112,7 +143,8 @@ end
 
 defmodule Ethereum.Validator.Accounts.V2.ProposerSettingsPayload.ProposerConfigEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :key, 1, type: :string
   field :value, 2, type: Ethereum.Validator.Accounts.V2.ProposerOptionPayload
@@ -120,7 +152,8 @@ end
 
 defmodule Ethereum.Validator.Accounts.V2.ProposerSettingsPayload do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.13.0"
 
   field :proposer_config, 1,
     repeated: true,
