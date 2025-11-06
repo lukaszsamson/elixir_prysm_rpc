@@ -22,8 +22,7 @@ defmodule PrysmRPC.MixProject do
   defp deps do
     [
       {:grpc, "~> 0.5"},
-      {:protobuf, "~> 0.13"},
-      {:google_protos, "~> 0.3"}
+      {:protobuf, "~> 0.14"}
     ]
   end
 end
