@@ -1,0 +1,24 @@
+defmodule Ethereum.Eth.V1alpha1.SignedBLSToExecutionChange do
+  @moduledoc false
+
+  use Protobuf,
+    full_name: "ethereum.eth.v1alpha1.SignedBLSToExecutionChange",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
+
+  field :message, 1, type: Ethereum.Eth.V1alpha1.BLSToExecutionChange
+  field :signature, 2, type: :bytes, deprecated: false
+end
+
+defmodule Ethereum.Eth.V1alpha1.BLSToExecutionChange do
+  @moduledoc false
+
+  use Protobuf,
+    full_name: "ethereum.eth.v1alpha1.BLSToExecutionChange",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
+
+  field :validator_index, 1, type: :uint64, json_name: "validatorIndex", deprecated: false
+  field :from_bls_pubkey, 2, type: :bytes, json_name: "fromBlsPubkey", deprecated: false
+  field :to_execution_address, 3, type: :bytes, json_name: "toExecutionAddress", deprecated: false
+end
