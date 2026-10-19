@@ -21,9 +21,9 @@ defmodule PrysmRPC.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:grpc, "~> 0.5"},
-      {:protobuf, "~> 0.13"},
-      {:google_protos, "~> 0.3"}
+      {:grpc, "~> 1.0"},
+      {:protobuf, "~> 0.17"},
+      {:google_protos, "~> 0.4"}
     ]
   end
 end

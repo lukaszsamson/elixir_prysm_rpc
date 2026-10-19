@@ -1,6 +1,7 @@
 defmodule Testing.PbExtension do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.13.0"
+
+  use Protobuf, protoc_gen_elixir_version: "0.17.1"
 
   extend Google.Protobuf.FieldOptions, :ssz_size, 60001,
     optional: true,

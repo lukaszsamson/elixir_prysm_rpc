@@ -1,6 +1,7 @@
 defmodule Ethereum.Eth.Ext.PbExtension do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.13.0"
+
+  use Protobuf, protoc_gen_elixir_version: "0.17.1"
 
   extend Google.Protobuf.FieldOptions, :cast_type, 50000,
     optional: true,
